@@ -8,7 +8,7 @@ getgenv().CopyToClipboard = typeof(getgenv().CopyToClipboard)=="function" or fal
         local result;
         pcall(function()
            result = ""
-           inc = typeof(inc)=="string" and tostirng(inc) or "."
+           inc = typeof(inc)=="string" and tostring(inc) or "."
            for i,v in pairs(pp) do
                if v~=nil then
                    if #pp~=i then result = result..v..inc else result = result..v end
