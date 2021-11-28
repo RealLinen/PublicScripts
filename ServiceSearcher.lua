@@ -2,7 +2,7 @@
 -----------------------------------
 -- Please dont steal credits, this is made by Linen#3485
 --=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-==-=--=-=-=-=-=-=-=-=-=--
-getgenv().CopyToClipboard = typeof(getgenv().CopyToClipboard)=="function" or false -- Copies the path to your clipboard
+getgenv().CopyToClipboard = typeof(getgenv().CopyToClipboard)=="function" and getgenv().CopyToClipboard or false -- Copies the path to your clipboard
     -- If you want to disable, set to false, or else, get your exploits clipboard function
     local function GetAll(pp,inc)
         local result;
