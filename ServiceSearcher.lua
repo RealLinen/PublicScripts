@@ -24,7 +24,7 @@ getgenv().CopyToClipboard = typeof(getgenv().CopyToClipboard)=="function" and ge
             local b = string.split(d,".")[1] -- Gets the Service the Parent is in
             a[1]=nil;a=GetAll(a); -- Im not gonna explain this, just learn more
             -- about lua
-            local path = "game:GetSerivce('"..tostring(b).."')."..tostring(a) -- this was easy to make
+            local path = "game:GetService('"..tostring(b).."')."..tostring(a) -- this was easy to make
             return path
         end)
         return{suc,body}
