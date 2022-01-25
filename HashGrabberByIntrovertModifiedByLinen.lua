@@ -163,3 +163,4 @@ do -- playsound
 end;
 
 --// Output Keys
+return network,network_keys
