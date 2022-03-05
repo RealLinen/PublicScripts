@@ -1,5 +1,6 @@
 -- made by coolmatt72#6707 (coolmatt72) on v3rm aswell as walter !!!#4155 monke hub discord : https://discord.gg/ZmDkXF3Tz7
 -- Modified by linen. Includes: Deleting already existing drawing libs
+getreg().drawLLL = type(getreg().drawLLL)=="table" and getreg().drawLLL or {}
 if getreg().drawLLL then
     for i,v in pairs(getreg().drawLLL) do
         pcall(function()v:Remove();v:Destroy();v:Kill() end)
