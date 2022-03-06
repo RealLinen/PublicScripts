@@ -92,7 +92,8 @@ do
 	end
 	
 	function utility:Pop(object, shrink)
-		local clone = object:Clone()
+		local suc,err = pcall(function()
+			local clone = object:Clone()
 		
 		clone.AnchorPoint = Vector2.new(0.5, 0.5)
 		clone.Size = clone.Size - UDim2.new(0, shrink, 0, shrink)
@@ -111,7 +112,9 @@ do
 			clone:Destroy()
 		end)
 		
-		return clone
+		return clone	
+	        end)
+		return err
 	end
 	
 	function utility:InitializeKeybind()
