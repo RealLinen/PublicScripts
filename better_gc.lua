@@ -91,6 +91,6 @@ getgenv().searchGC = searchGC
 --[[
 table.foreach(searchGC(game:GetService("Players").LocalPlayer)[1],function(i,v)
     i = typeof(i)=="Instance" and "( "..i.ClassName.." || "..i.." ):" or "( "..typeof(i).." || "..i.." ):"
-    print(i,v,"( "..typeof(v).." )")
+    print(i,v,(typeof(v)=="Instance" and "( "..typeof(v).." ) ( "..v.ClassName.." )" or "( "..typeof(v).." )"))
 end)
 ]]
