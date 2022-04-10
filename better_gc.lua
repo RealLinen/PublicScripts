@@ -90,6 +90,7 @@ getgenv().searchGC = searchGC
 --[[
 table.foreach(searchGC(game:GetService("Players").LocalPlayer)[1],function(i,v)
     i = typeof(i)=="Instance" and "( "..i.ClassName.." || "..i.." ):" or "( "..typeof(i).." || "..i.." ):"
-    print(i,v,(typeof(v)=="Instance" and "( "..typeof(v).." ) ( "..v.ClassName.." )" or "( "..typeof(v).." )"))
+    local fake,real = pcall(function() return (v.Value) end);if not fake then fake,real = pcall(function()return v.Text end);if fake then real = " ( "..tostring(real).." )" else real = ""end else real = " ( "..tostring(real).." )" end
+    print(i,v,(typeof(v)=="Instance" and "( "..typeof(v).." ) ( "..v.ClassName.." )"..real or "( "..typeof(v).." )"))
 end)
 ]]
