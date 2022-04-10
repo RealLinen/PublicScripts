@@ -1,4 +1,3 @@
-if getgenv().searchGC then return;end
 ---------------------------- Required Stuff
 getreg().DATA_DONTMODIFY = {variableFreeze={}} -- basically the function|| Saves data
 local _ ,__= pcall(function()
