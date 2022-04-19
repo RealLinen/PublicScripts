@@ -1975,7 +1975,7 @@ function Kavo.CreateLib(kavName, themeList)
                         if a.KeyCode.Name ~= "Unknown" then
                             togName_2.Text = a.KeyCode.Name
                             oldKey = a.KeyCode.Name;
-                            first = a.KeyCode
+                            first = a
                         end
                         local c = sample:Clone()
                         c.Parent = keybindElement
@@ -2003,7 +2003,7 @@ function Kavo.CreateLib(kavName, themeList)
                 
                 uis.InputBegan:Connect(function(current, ok) 
                     if not ok then 
-                        if current.KeyCode == first.KeyCode then 
+                        if current.KeyCode.Name == first.KeyCode.Name then 
                             for i,v in pairs(getreg().kavoUISSSS) do
                                 if(v.Name and v.Name==kavName) then
                                     pcall(function()
