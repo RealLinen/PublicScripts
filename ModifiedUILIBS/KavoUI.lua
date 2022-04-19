@@ -1937,224 +1937,226 @@ function Kavo.CreateLib(kavName, themeList)
                 return DropFunction
             end
             function Elements:NewKeybind(keytext, keyinf, first, callback)
-                keytext = keytext or "KeybindText"
-                keyinf = keyinf or "KebindInfo"
-                callback = callback or function() end
-                local oldKey = first.Name
-                local keybindElement = Instance.new("TextButton")
-                local UICorner = Instance.new("UICorner")
-                local togName = Instance.new("TextLabel")
-                local viewInfo = Instance.new("ImageButton")
-                local touch = Instance.new("ImageLabel")
-                local Sample = Instance.new("ImageLabel")
-                local togName_2 = Instance.new("TextLabel")
-
-                local ms = game.Players.LocalPlayer:GetMouse()
-                local uis = game:GetService("UserInputService")
-                local infBtn = viewInfo
-
-                local moreInfo = Instance.new("TextLabel")
-                local UICorner1 = Instance.new("UICorner")
-
-                local sample = Sample
-
-                keybindElement.Name = "keybindElement"
-                keybindElement.Parent = sectionInners
-                keybindElement.BackgroundColor3 = themeList.ElementColor
-                keybindElement.ClipsDescendants = true
-                keybindElement.Size = UDim2.new(0, 352, 0, 33)
-                keybindElement.AutoButtonColor = false
-                keybindElement.Font = Enum.Font.SourceSans
-                keybindElement.Text = ""
-                keybindElement.TextColor3 = Color3.fromRGB(0, 0, 0)
-                keybindElement.TextSize = 14.000
-                keybindElement.MouseButton1Click:connect(function(e) 
-                    if not focusing then
-                        togName_2.Text = ". . ."
-                        local a, b = game:GetService('UserInputService').InputBegan:wait();
-                        if a.KeyCode.Name ~= "Unknown" then
-                            togName_2.Text = a.KeyCode.Name
-                            oldKey = a.KeyCode.Name;
-                            first = a
-                        end
-                        local c = sample:Clone()
-                        c.Parent = keybindElement
-                        local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
-                        c.Position = UDim2.new(0, x, 0, y)
-                        local len, size = 0.35, nil
-                        if keybindElement.AbsoluteSize.X >= keybindElement.AbsoluteSize.Y then
-                            size = (keybindElement.AbsoluteSize.X * 1.5)
+                pcall(function()
+                    keytext = keytext or "KeybindText"
+                    keyinf = keyinf or "KebindInfo"
+                    callback = callback or function() end
+                    local oldKey = first.Name
+                    local keybindElement = Instance.new("TextButton")
+                    local UICorner = Instance.new("UICorner")
+                    local togName = Instance.new("TextLabel")
+                    local viewInfo = Instance.new("ImageButton")
+                    local touch = Instance.new("ImageLabel")
+                    local Sample = Instance.new("ImageLabel")
+                    local togName_2 = Instance.new("TextLabel")
+    
+                    local ms = game.Players.LocalPlayer:GetMouse()
+                    local uis = game:GetService("UserInputService")
+                    local infBtn = viewInfo
+    
+                    local moreInfo = Instance.new("TextLabel")
+                    local UICorner1 = Instance.new("UICorner")
+    
+                    local sample = Sample
+    
+                    keybindElement.Name = "keybindElement"
+                    keybindElement.Parent = sectionInners
+                    keybindElement.BackgroundColor3 = themeList.ElementColor
+                    keybindElement.ClipsDescendants = true
+                    keybindElement.Size = UDim2.new(0, 352, 0, 33)
+                    keybindElement.AutoButtonColor = false
+                    keybindElement.Font = Enum.Font.SourceSans
+                    keybindElement.Text = ""
+                    keybindElement.TextColor3 = Color3.fromRGB(0, 0, 0)
+                    keybindElement.TextSize = 14.000
+                    keybindElement.MouseButton1Click:connect(function(e) 
+                        if not focusing then
+                            togName_2.Text = ". . ."
+                            local a, b = game:GetService('UserInputService').InputBegan:wait();
+                            if a.KeyCode.Name ~= "Unknown" then
+                                togName_2.Text = a.KeyCode.Name
+                                oldKey = a.KeyCode.Name;
+                                first = a
+                            end
+                            local c = sample:Clone()
+                            c.Parent = keybindElement
+                            local x, y = (ms.X - c.AbsolutePosition.X), (ms.Y - c.AbsolutePosition.Y)
+                            c.Position = UDim2.new(0, x, 0, y)
+                            local len, size = 0.35, nil
+                            if keybindElement.AbsoluteSize.X >= keybindElement.AbsoluteSize.Y then
+                                size = (keybindElement.AbsoluteSize.X * 1.5)
+                            else
+                                size = (keybindElement.AbsoluteSize.Y * 1.5)
+                            end
+                            c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+                            for i = 1, 10 do
+                            c.ImageTransparency = c.ImageTransparency + 0.05
+                                wait(len / 12)
+                            end
                         else
-                            size = (keybindElement.AbsoluteSize.Y * 1.5)
+                            for i,v in next, infoContainer:GetChildren() do
+                                Utility:TweenObject(v, {Position = UDim2.new(0,0,2,0)}, 0.2)
+                                focusing = false
+                            end
+                            Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
                         end
-                        c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
-                        for i = 1, 10 do
-                        c.ImageTransparency = c.ImageTransparency + 0.05
-                            wait(len / 12)
-                        end
-                    else
-                        for i,v in next, infoContainer:GetChildren() do
-                            Utility:TweenObject(v, {Position = UDim2.new(0,0,2,0)}, 0.2)
-                            focusing = false
-                        end
-                        Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
-                    end
-                end)
-                
-                uis.InputBegan:Connect(function(current, ok) 
-                    if not ok then 
-                        if current.KeyCode.Name == first.KeyCode.Name then 
-                            for i,v in pairs(getreg().kavoUISSSS) do
-                                if(v.Name and v.Name==kavName) then
-                                    pcall(function()
-                                        return callback()
-                                    end) 
+                    end)
+                    
+                    uis.InputBegan:Connect(function(current, ok) 
+                        if not ok then 
+                            if current.KeyCode.Name == first.KeyCode.Name then 
+                                for i,v in pairs(getreg().kavoUISSSS) do
+                                    if(v.Name and v.Name==kavName) then
+                                        pcall(function()
+                                            return callback()
+                                        end) 
+                                    end
                                 end
                             end
                         end
-                    end
-                    return true
-                end)
-
-                moreInfo.Name = "TipMore"
-                moreInfo.Parent = infoContainer
-                moreInfo.BackgroundColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 14, themeList.SchemeColor.g * 255 - 17, themeList.SchemeColor.b * 255 - 13)
-                moreInfo.Position = UDim2.new(0, 0, 2, 0)
-                moreInfo.Size = UDim2.new(0, 353, 0, 33)
-                moreInfo.ZIndex = 9
-                moreInfo.RichText = true
-                moreInfo.Font = Enum.Font.GothamSemibold
-                moreInfo.Text = "  "..keyinf
-                moreInfo.TextColor3 = themeList.TextColor
-                moreInfo.TextSize = 14.000
-                moreInfo.TextXAlignment = Enum.TextXAlignment.Left
-
-                Sample.Name = "Sample"
-                Sample.Parent = keybindElement
-                Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Sample.BackgroundTransparency = 1.000
-                Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
-                Sample.ImageColor3 = themeList.SchemeColor
-                Sample.ImageTransparency = 0.600
-
-                
-                togName.Name = "togName"
-                togName.Parent = keybindElement
-                togName.BackgroundColor3 = themeList.TextColor
-                togName.BackgroundTransparency = 1.000
-                togName.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
-                togName.Size = UDim2.new(0, 222, 0, 14)
-                togName.Font = Enum.Font.GothamSemibold
-                togName.Text = keytext
-                togName.RichText = true
-                togName.TextColor3 = themeList.TextColor
-                togName.TextSize = 14.000
-                togName.TextXAlignment = Enum.TextXAlignment.Left
-
-                viewInfo.Name = "viewInfo"
-                viewInfo.Parent = keybindElement
-                viewInfo.BackgroundTransparency = 1.000
-                viewInfo.LayoutOrder = 9
-                viewInfo.Position = UDim2.new(0.930000007, 0, 0.151999995, 0)
-                viewInfo.Size = UDim2.new(0, 23, 0, 23)
-                viewInfo.ZIndex = 2
-                viewInfo.Image = "rbxassetid://3926305904"
-                viewInfo.ImageColor3 = themeList.SchemeColor
-                viewInfo.ImageRectOffset = Vector2.new(764, 764)
-                viewInfo.ImageRectSize = Vector2.new(36, 36)
-                viewInfo.MouseButton1Click:Connect(function()
-                    if not viewDe then
-                        viewDe = true
-                        focusing = true
-                        for i,v in next, infoContainer:GetChildren() do
-                            if v ~= moreInfo then
-                                Utility:TweenObject(v, {Position = UDim2.new(0,0,2,0)}, 0.2)
+                        return true
+                    end)
+    
+                    moreInfo.Name = "TipMore"
+                    moreInfo.Parent = infoContainer
+                    moreInfo.BackgroundColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 14, themeList.SchemeColor.g * 255 - 17, themeList.SchemeColor.b * 255 - 13)
+                    moreInfo.Position = UDim2.new(0, 0, 2, 0)
+                    moreInfo.Size = UDim2.new(0, 353, 0, 33)
+                    moreInfo.ZIndex = 9
+                    moreInfo.RichText = true
+                    moreInfo.Font = Enum.Font.GothamSemibold
+                    moreInfo.Text = "  "..keyinf
+                    moreInfo.TextColor3 = themeList.TextColor
+                    moreInfo.TextSize = 14.000
+                    moreInfo.TextXAlignment = Enum.TextXAlignment.Left
+    
+                    Sample.Name = "Sample"
+                    Sample.Parent = keybindElement
+                    Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    Sample.BackgroundTransparency = 1.000
+                    Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
+                    Sample.ImageColor3 = themeList.SchemeColor
+                    Sample.ImageTransparency = 0.600
+    
+                    
+                    togName.Name = "togName"
+                    togName.Parent = keybindElement
+                    togName.BackgroundColor3 = themeList.TextColor
+                    togName.BackgroundTransparency = 1.000
+                    togName.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
+                    togName.Size = UDim2.new(0, 222, 0, 14)
+                    togName.Font = Enum.Font.GothamSemibold
+                    togName.Text = keytext
+                    togName.RichText = true
+                    togName.TextColor3 = themeList.TextColor
+                    togName.TextSize = 14.000
+                    togName.TextXAlignment = Enum.TextXAlignment.Left
+    
+                    viewInfo.Name = "viewInfo"
+                    viewInfo.Parent = keybindElement
+                    viewInfo.BackgroundTransparency = 1.000
+                    viewInfo.LayoutOrder = 9
+                    viewInfo.Position = UDim2.new(0.930000007, 0, 0.151999995, 0)
+                    viewInfo.Size = UDim2.new(0, 23, 0, 23)
+                    viewInfo.ZIndex = 2
+                    viewInfo.Image = "rbxassetid://3926305904"
+                    viewInfo.ImageColor3 = themeList.SchemeColor
+                    viewInfo.ImageRectOffset = Vector2.new(764, 764)
+                    viewInfo.ImageRectSize = Vector2.new(36, 36)
+                    viewInfo.MouseButton1Click:Connect(function()
+                        if not viewDe then
+                            viewDe = true
+                            focusing = true
+                            for i,v in next, infoContainer:GetChildren() do
+                                if v ~= moreInfo then
+                                    Utility:TweenObject(v, {Position = UDim2.new(0,0,2,0)}, 0.2)
+                                end
                             end
+                            Utility:TweenObject(moreInfo, {Position = UDim2.new(0,0,0,0)}, 0.2)
+                            Utility:TweenObject(blurFrame, {BackgroundTransparency = 0.5}, 0.2)
+                            Utility:TweenObject(keybindElement, {BackgroundColor3 = themeList.ElementColor}, 0.2)
+                            wait(1.5)
+                            focusing = false
+                            Utility:TweenObject(moreInfo, {Position = UDim2.new(0,0,2,0)}, 0.2)
+                            Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
+                            wait(0)
+                            viewDe = false
                         end
-                        Utility:TweenObject(moreInfo, {Position = UDim2.new(0,0,0,0)}, 0.2)
-                        Utility:TweenObject(blurFrame, {BackgroundTransparency = 0.5}, 0.2)
-                        Utility:TweenObject(keybindElement, {BackgroundColor3 = themeList.ElementColor}, 0.2)
-                        wait(1.5)
-                        focusing = false
-                        Utility:TweenObject(moreInfo, {Position = UDim2.new(0,0,2,0)}, 0.2)
-                        Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
-                        wait(0)
-                        viewDe = false
-                    end
-                end)  
-                                updateSectionFrame()
-                UpdateSize()
-                local oHover = false
-                keybindElement.MouseEnter:Connect(function()
-                    if not focusing then
-                        game.TweenService:Create(keybindElement, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                            BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 8, themeList.ElementColor.g * 255 + 9, themeList.ElementColor.b * 255 + 10)
-                        }):Play()
-                        oHover = true
+                    end)  
+                                    updateSectionFrame()
+                    UpdateSize()
+                    local oHover = false
+                    keybindElement.MouseEnter:Connect(function()
+                        if not focusing then
+                            game.TweenService:Create(keybindElement, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                                BackgroundColor3 = Color3.fromRGB(themeList.ElementColor.r * 255 + 8, themeList.ElementColor.g * 255 + 9, themeList.ElementColor.b * 255 + 10)
+                            }):Play()
+                            oHover = true
+                        end 
+                    end)
+                    keybindElement.MouseLeave:Connect(function()
+                        if not focusing then
+                            game.TweenService:Create(keybindElement, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
+                                BackgroundColor3 = themeList.ElementColor
+                            }):Play()
+                            oHover = false
+                        end
+                    end)        
+    
+                    UICorner1.CornerRadius = UDim.new(0, 4)
+                    UICorner1.Parent = moreInfo
+    
+                    if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
+                        Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
                     end 
-                end)
-                keybindElement.MouseLeave:Connect(function()
-                    if not focusing then
-                        game.TweenService:Create(keybindElement, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
-                            BackgroundColor3 = themeList.ElementColor
-                        }):Play()
-                        oHover = false
-                    end
-                end)        
-
-                UICorner1.CornerRadius = UDim.new(0, 4)
-                UICorner1.Parent = moreInfo
-
-                if themeList.SchemeColor == Color3.fromRGB(255,255,255) then
-                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(0,0,0)}, 0.2)
-                end 
-                if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
-                    Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
-                end 
-
-                UICorner.CornerRadius = UDim.new(0, 4)
-                UICorner.Parent = keybindElement
-
-                touch.Name = "touch"
-                touch.Parent = keybindElement
-                touch.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                touch.BackgroundTransparency = 1.000
-                touch.BorderColor3 = Color3.fromRGB(27, 42, 53)
-                touch.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
-                touch.Size = UDim2.new(0, 21, 0, 21)
-                touch.Image = "rbxassetid://3926305904"
-                touch.ImageColor3 = themeList.SchemeColor
-                touch.ImageRectOffset = Vector2.new(364, 284)
-                touch.ImageRectSize = Vector2.new(36, 36)
-
-                togName_2.Name = "togName"
-                togName_2.Parent = keybindElement
-                togName_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                togName_2.BackgroundTransparency = 1.000
-                togName_2.Position = UDim2.new(0.727386296, 0, 0.272727281, 0)
-                togName_2.Size = UDim2.new(0, 70, 0, 14)
-                togName_2.Font = Enum.Font.GothamSemibold
-                togName_2.Text = oldKey
-                togName_2.TextColor3 = themeList.SchemeColor
-                togName_2.TextSize = 14.000
-                togName_2.TextXAlignment = Enum.TextXAlignment.Right   
-
-                coroutine.wrap(function()
-                    while wait() do
-                        if not oHover then
-                            keybindElement.BackgroundColor3 = themeList.ElementColor
+                    if themeList.SchemeColor == Color3.fromRGB(0,0,0) then
+                        Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
+                    end 
+    
+                    UICorner.CornerRadius = UDim.new(0, 4)
+                    UICorner.Parent = keybindElement
+    
+                    touch.Name = "touch"
+                    touch.Parent = keybindElement
+                    touch.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    touch.BackgroundTransparency = 1.000
+                    touch.BorderColor3 = Color3.fromRGB(27, 42, 53)
+                    touch.Position = UDim2.new(0.0199999996, 0, 0.180000007, 0)
+                    touch.Size = UDim2.new(0, 21, 0, 21)
+                    touch.Image = "rbxassetid://3926305904"
+                    touch.ImageColor3 = themeList.SchemeColor
+                    touch.ImageRectOffset = Vector2.new(364, 284)
+                    touch.ImageRectSize = Vector2.new(36, 36)
+    
+                    togName_2.Name = "togName"
+                    togName_2.Parent = keybindElement
+                    togName_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                    togName_2.BackgroundTransparency = 1.000
+                    togName_2.Position = UDim2.new(0.727386296, 0, 0.272727281, 0)
+                    togName_2.Size = UDim2.new(0, 70, 0, 14)
+                    togName_2.Font = Enum.Font.GothamSemibold
+                    togName_2.Text = oldKey
+                    togName_2.TextColor3 = themeList.SchemeColor
+                    togName_2.TextSize = 14.000
+                    togName_2.TextXAlignment = Enum.TextXAlignment.Right   
+    
+                    coroutine.wrap(function()
+                        while wait() do
+                            if not oHover then
+                                keybindElement.BackgroundColor3 = themeList.ElementColor
+                            end
+                            togName_2.TextColor3 = themeList.SchemeColor
+                            touch.ImageColor3 = themeList.SchemeColor
+                            viewInfo.ImageColor3 = themeList.SchemeColor
+                            togName.BackgroundColor3 = themeList.TextColor
+                            togName.TextColor3 = themeList.TextColor
+                            Sample.ImageColor3 = themeList.SchemeColor
+                            moreInfo.TextColor3 = themeList.TextColor
+                            moreInfo.BackgroundColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 14, themeList.SchemeColor.g * 255 - 17, themeList.SchemeColor.b * 255 - 13)
+    
                         end
-                        togName_2.TextColor3 = themeList.SchemeColor
-                        touch.ImageColor3 = themeList.SchemeColor
-                        viewInfo.ImageColor3 = themeList.SchemeColor
-                        togName.BackgroundColor3 = themeList.TextColor
-                        togName.TextColor3 = themeList.TextColor
-                        Sample.ImageColor3 = themeList.SchemeColor
-                        moreInfo.TextColor3 = themeList.TextColor
-                        moreInfo.BackgroundColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 14, themeList.SchemeColor.g * 255 - 17, themeList.SchemeColor.b * 255 - 13)
-
-                    end
-                end)()
+                    end)()
+                end)
             end
 
             function Elements:NewColorPicker(colText, colInf, defcolor, callback)
