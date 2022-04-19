@@ -368,7 +368,7 @@ function Kavo.CreateLib(kavName, themeList)
 
     
     coroutine.wrap(function()
-        while wait() do
+        while task.wait() do
             Main.BackgroundColor3 = themeList.Background
             MainHeader.BackgroundColor3 = themeList.Header
             MainSide.BackgroundColor3 = themeList.Header
@@ -486,7 +486,7 @@ function Kavo.CreateLib(kavName, themeList)
         local viewDe = false
 
         coroutine.wrap(function()
-            while wait() do
+            while task.wait() do
                 page.BackgroundColor3 = themeList.Background
                 page.ScrollBarImageColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 16, themeList.SchemeColor.g * 255 - 15, themeList.SchemeColor.b * 255 - 28)
                 tabButton.TextColor3 = themeList.TextColor
@@ -524,7 +524,7 @@ function Kavo.CreateLib(kavName, themeList)
             sectionlistoknvm.Padding = UDim.new(0, 5)
 
             for i,v in pairs(sectionInners:GetChildren()) do
-                while wait() do
+                while task.wait() do
                     if v:IsA("Frame") or v:IsA("TextButton") then
                         function size(pro)
                             if pro == "Size" then
@@ -580,7 +580,7 @@ function Kavo.CreateLib(kavName, themeList)
 
             
         coroutine.wrap(function()
-            while wait() do
+            while task.wait() do
                 sectionFrame.BackgroundColor3 = themeList.Background
                 sectionHead.BackgroundColor3 = themeList.SchemeColor
                 tabButton.TextColor3 = themeList.TextColor
@@ -780,7 +780,7 @@ function Kavo.CreateLib(kavName, themeList)
                     end
                 end)
                 coroutine.wrap(function()
-                    while wait() do
+                    while task.wait() do
                         if not hovering then
                             buttonElement.BackgroundColor3 = themeList.ElementColor
                         end
@@ -979,7 +979,7 @@ function Kavo.CreateLib(kavName, themeList)
                     end
                 end)
                 coroutine.wrap(function()
-                    while wait() do
+                    while task.wait() do
                         if not hovering then
                             textboxElement.BackgroundColor3 = themeList.ElementColor
                         end
@@ -1189,7 +1189,7 @@ function Kavo.CreateLib(kavName, themeList)
                     end)
 
                     coroutine.wrap(function()
-                        while wait() do
+                        while task.wait() do
                             if not hovering then
                                 toggleElement.BackgroundColor3 = themeList.ElementColor
                             end
@@ -1409,7 +1409,7 @@ function Kavo.CreateLib(kavName, themeList)
                 end)        
 
                 coroutine.wrap(function()
-                    while wait() do
+                    while task.wait() do
                         if not hovering then
                             sliderElement.BackgroundColor3 = themeList.ElementColor
                         end
@@ -1687,7 +1687,7 @@ function Kavo.CreateLib(kavName, themeList)
                     end
                 end)        
                 coroutine.wrap(function()
-                    while wait() do
+                    while task.wait() do
                         if not hovering then
                             dropOpen.BackgroundColor3 = themeList.ElementColor
                         end
@@ -1814,7 +1814,7 @@ function Kavo.CreateLib(kavName, themeList)
                         end
                     end)   
                     coroutine.wrap(function()
-                        while wait() do
+                        while task.wait() do
                             if not oHover then
                                 optionSelect.BackgroundColor3 = themeList.ElementColor
                             end
@@ -1913,7 +1913,7 @@ function Kavo.CreateLib(kavName, themeList)
                             end
                         end)   
                         coroutine.wrap(function()
-                            while wait() do
+                            while task.wait() do
                                 if not oHover then
                                     optionSelect.BackgroundColor3 = themeList.ElementColor
                                 end
@@ -2143,7 +2143,7 @@ function Kavo.CreateLib(kavName, themeList)
                     togName_2.TextXAlignment = Enum.TextXAlignment.Right   
     
                     coroutine.wrap(function()
-                        while wait() do
+                        while task.wait() do
                             if not oHover then
                                 keybindElement.BackgroundColor3 = themeList.ElementColor
                             end
@@ -2501,7 +2501,7 @@ function Kavo.CreateLib(kavName, themeList)
                     Utility:TweenObject(moreInfo, {TextColor3 = Color3.fromRGB(255,255,255)}, 0.2)
                 end 
                 coroutine.wrap(function()
-                    while wait() do
+                    while task.wait() do
                         if not hovering then
                             colorElement.BackgroundColor3 = themeList.ElementColor
                         end
@@ -2658,7 +2658,7 @@ function Kavo.CreateLib(kavName, themeList)
 	            end 
 
 		        coroutine.wrap(function()
-		            while wait() do
+		            while task.wait() do
 		                label.BackgroundColor3 = themeList.SchemeColor
 		                label.TextColor3 = themeList.TextColor
 		            end
