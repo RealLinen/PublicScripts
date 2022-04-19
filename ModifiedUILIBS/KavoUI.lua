@@ -6,6 +6,7 @@
     Documentation [ By Original Creator ]: https://xheptcofficial.gitbook.io/kavo-library/
 ]]
 ------------------------------
+getreg().kavoUISSSS = getreg().kavoUISSSS or {} -- Important for the UI to work
 if not getgenv().protect_instance then getgenv().protect_instance, getgenv().unprotect_instance = loadstring(game:HttpGet("https://pastebin.com/raw/Ai9BnM07"))()end
 if not getgenv().tabletostring then loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/JBhappy/RobloxNetwork/main/tableToString',true))();getgenv().tabletostring=_G.tableToString end
 ------------------------------
@@ -134,6 +135,8 @@ local themeStyles = {
         ElementColor = Color3.fromRGB(22, 29, 31)
     }
 }
+
+
 local oldTheme = ""
 
 local SettingsT = {
@@ -151,8 +154,7 @@ end
 Settings = game:service'HttpService':JSONEncode(readfile(Name))
 end)
 
-local LibName = tostring(math.random(1, 100))..tostring(math.random(1,50))..tostring(math.random(1, 100))
-
+local LibName;
 function Kavo:ToggleUI()
     if guiPath[LibName].Enabled then
         guiPath[LibName].Enabled = false
@@ -200,9 +202,12 @@ function Kavo.CreateLib(kavName, themeList)
     themeList = themeList or {}
     local selectedTab 
     kavName = kavName or "No Name Hub"
-    for i,v in pairs(guiPath:GetChildren()) do
-        if v:IsA("ScreenGui") and v.Name == kavName then
-            v:Destroy()
+    LibName = kavName
+
+    for i,v in pairs(getreg().kavoUISSSS) do
+        if v and v.Name == kavName and v.Value then
+            v.Value:Destroy()
+            getreg().kavoUISSSS[i] = nil;
         end
     end
     local ScreenGui = Instance.new("ScreenGui")
@@ -235,7 +240,12 @@ function Kavo.CreateLib(kavName, themeList)
     blurFrame.Size = UDim2.new(0, 376, 0, 289)
     blurFrame.ZIndex = 999
 
-    protect_instance(ScreenGui) -- Protects GUI's or Instances from detection
+    getreg().kavoUISSSS[#getreg().kavoUISSSS+1] = {
+        Name = kavName,
+        Value = ScreenGui
+    }
+
+    protect_instance(ScreenGui)
     ScreenGui.Parent = guiPath
     ScreenGui.Name = kavName
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
