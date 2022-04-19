@@ -2002,9 +2002,13 @@ function Kavo.CreateLib(kavName, themeList)
                 game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
                     if not ok then 
                         if current.KeyCode.Name == oldKey then 
-                            pcall(function()
-                                callback()
-                            end)
+                            for i,v in pairs(getreg().kavoUISSSS) do
+                                if(v.Name and v.Name==kavName) then
+                                    pcall(function()
+                                        callback()
+                                    end) 
+                                end
+                            end
                         end
                     end
                 end)
