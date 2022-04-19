@@ -15,6 +15,7 @@ local Kavo = {}
 local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
 local input = game:GetService("UserInputService")
+local inputsGlobal = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 
 local Utility = {}
@@ -1974,6 +1975,7 @@ function Kavo.CreateLib(kavName, themeList)
                         if a.KeyCode.Name ~= "Unknown" then
                             togName_2.Text = a.KeyCode.Name
                             oldKey = a.KeyCode.Name;
+                            first = a.KeyCode
                         end
                         local c = sample:Clone()
                         c.Parent = keybindElement
@@ -1998,19 +2000,20 @@ function Kavo.CreateLib(kavName, themeList)
                         Utility:TweenObject(blurFrame, {BackgroundTransparency = 1}, 0.2)
                     end
                 end)
-        
-                game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
+                
+                uis.InputBegan:Connect(function(current, ok) 
                     if not ok then 
-                        if current.KeyCode.Name == oldKey then 
+                        if current.KeyCode == first.KeyCode then 
                             for i,v in pairs(getreg().kavoUISSSS) do
                                 if(v.Name and v.Name==kavName) then
                                     pcall(function()
-                                        callback()
+                                        return callback()
                                     end) 
                                 end
                             end
                         end
                     end
+                    return true
                 end)
 
                 moreInfo.Name = "TipMore"
