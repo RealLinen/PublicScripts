@@ -1942,6 +1942,7 @@ function Kavo.CreateLib(kavName, themeList)
                     keyinf = keyinf or "KebindInfo"
                     callback = callback or function() end
                     local oldKey = first.Name
+                    first = Enum.KeyCode[oldKey]
                     local keybindElement = Instance.new("TextButton")
                     local UICorner = Instance.new("UICorner")
                     local togName = Instance.new("TextLabel")
@@ -2004,15 +2005,17 @@ function Kavo.CreateLib(kavName, themeList)
                     
                     uis.InputBegan:Connect(function(current, ok) 
                         if not ok then 
-                            if current.KeyCode.Name == first.KeyCode.Name then 
-                                for i,v in pairs(getreg().kavoUISSSS) do
-                                    if(v.Name and v.Name==kavName) then
-                                        pcall(function()
-                                            return callback()
-                                        end) 
+                            pcall(function()
+                                if current.KeyCode.Name == first.KeyCode.Name then 
+                                    for i,v in pairs(getreg().kavoUISSSS) do
+                                        if(v.Name and v.Name==kavName) then
+                                            pcall(function()
+                                                return callback()
+                                            end) 
+                                        end
                                     end
                                 end
-                            end
+                            end)
                         end
                         return true
                     end)
