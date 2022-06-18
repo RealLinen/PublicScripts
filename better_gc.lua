@@ -88,6 +88,7 @@ end
 getgenv().searchGC = searchGC
 --------------------------------------
 --[[
+getreg().jfjwfiujhVERSON__IMSTRAIGHT__STORMISSTRAIGHTANDEPICCHAD = typeof(getreg().jfjwfiujhVERSON__IMSTRAIGHT__STORMISSTRAIGHTANDEPICCHAD)=="number" and getreg().jfjwfiujhVERSON__IMSTRAIGHT__STORMISSTRAIGHTANDEPICCHAD+1 or 0;local versionfwjhbfnjwf_STORMLIKEGIRLS_STORMISNOTAWEEB=tonumber(getreg().jfjwfiujhVERSON__IMSTRAIGHT__STORMISSTRAIGHTANDEPICCHAD);local function isver()return versionfwjhbfnjwf_STORMLIKEGIRLS_STORMISNOTAWEEB==getreg().jfjwfiujhVERSON__IMSTRAIGHT__STORMISSTRAIGHTANDEPICCHAD;end
 print("=====================================")
 table.foreach(searchGC("data", nil, {table=true})[1],function(i,v)
     i = typeof(i)=="Instance" and "( "..i.ClassName.." || "..i.." ):" or "( "..typeof(i).." || "..i.." ):"
