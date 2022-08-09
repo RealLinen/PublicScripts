@@ -31,3 +31,5 @@ __namecallHook:new(newcclosure(function(checkcaller --[[ If it's synapses thread
     end
     -- If you don't return anything, it'll just return the default: __namecallHook.old(Self, ...) so you don't need to return anything basically
 end))
+-------------------------------- To be used as a module
+return Hooks
