@@ -22,7 +22,7 @@ local __indexHook = Hooks2
 local __namecallHook = Hooks
 ------------------------------------
 -- Anti kick Example
-__namecallHook:new(newcclosure(function(checkcaller, Self, Callmethod, ...)
+__namecallHook:new(newcclosure(function(checkcaller --[[ If it's synapses thread/called from synapse or not || THIS IS A BOOL! ]], Self, Callmethod, ...)
     local arg = {...}
     if not checkcaller then -- Not called by synapse
         if tostring(Callmethod):lower():match(tostring("Kick"):lower()) then -- If the Callmethod ( Self:<callmethod> ) is kick then the game is prob tryna kick you
