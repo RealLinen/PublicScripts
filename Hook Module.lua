@@ -22,14 +22,14 @@ local __indexHook = Hooks2
 local __namecallHook = Hooks
 ------------------------------------
 -- Anti kick Example
-__namecallHook:new(newcclosure(function(checkcaller --[[ If it's synapses thread/called from synapse or not || THIS IS A BOOL! ]], callingscript --[[ the calling script/what script it was called from ]], Self, Callmethod, ...)
-    local arg = {...}
-    if not checkcaller then -- Not called by synapse
-        if tostring(Callmethod):lower():match(tostring("Kick"):lower()) then -- If the Callmethod ( Self:<callmethod> ) is kick then the game is prob tryna kick you
-            return nil -- nil to do nothing
-        end
-    end
+--__namecallHook:new(newcclosure(function(checkcaller --[[ If it's synapses thread/called from synapse or not || THIS IS A BOOL! ]], callingscript --[[ the calling script/what script it was called from ]], Self, Callmethod, ...)
+    --local arg = {...}
+    --if not checkcaller then -- Not called by synapse
+        --if tostring(Callmethod):lower():match(tostring("Kick"):lower()) then -- If the Callmethod ( Self:<callmethod> ) is kick then the game is prob tryna kick you
+            --return nil -- nil to do nothing
+        --end
+    --end
     -- If you don't return anything, it'll just return the default: __namecallHook.old(Self, ...) so you don't need to return anything basically
-end))
+--end))
 -------------------------------- To be used as a module
 return __indexHook, __namecallHook, isver, Hooks, Hooks2
