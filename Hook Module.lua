@@ -21,6 +21,22 @@ function Hooks2:delete(ind) if not ind then return; end;Hooks2.stored[ind] = nil
 local __indexHook = Hooks2
 local __namecallHook = Hooks
 ------------------------------------
+__namecallHook:new(newcclosure(function(checkcaller, callingscript, Self, callmethod, ...)
+        local arg = {...}
+        if checkcaller then
+           if type(arg[1])=="string" and arg[1]:lower()=="coregui" then
+              return game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+           end
+        end
+end))
+__indexHook:new(newcclosure(function(checkcaller, callingscript, Self, Key, ...)
+        local arg = {...}
+        if checkcaller then
+           if type(Key)=="string" and Key:lower()=="coregui" then
+              return game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")      
+           end
+        end
+end))
 -- Anti kick Example
 --__namecallHook:new(newcclosure(function(checkcaller --[[ If it's synapses thread/called from synapse or not || THIS IS A BOOL! ]], callingscript --[[ the calling script/what script it was called from ]], Self, Callmethod, ...)
     --local arg = {...}
