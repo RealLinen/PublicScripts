@@ -59,7 +59,7 @@ __indexHook:new(newcclosure(function(checkcaller, callingscript, Self, Key, ...)
        pcall(function()
            if type(Key)=="string" and Key:lower()=="name" and Self:IsA("ScreenGui") then
               if not isPartOfCoreGui(Self) then
-                Self.DisplayOrder = 9
+                Self.DisplayOrder = 10
                 protect_instance(Self)
               end
            end
