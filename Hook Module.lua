@@ -33,6 +33,6 @@ local __namecallHook = Hooks
 --end))
 -------------------------------- To be used as a module
 if not getgenv().dontprinthookmodule then
-	print("Hook Module v1.1 Loaded!");
+	print("Hook Module v1.1 Loaded!", "Enjoy");
 end
 return __indexHook, __namecallHook, isver, Hooks, Hooks2
