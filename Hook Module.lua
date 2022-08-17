@@ -1,25 +1,4 @@
 -- Made by Linen#3485
-local oldCoreGui = game:GetService("CoreGui")
-getreg().coreGuiCached = getreg().coreGuiCached or nil;
-if not getreg().coreGuiCached then
-    getreg().coreGuiCached = {}
-    for i,v in pairs(oldCoreGui:GetChildren()) do
-        getreg().coreGuiCached[i] = v
-    end
-end
-
-local function isPartOfCoreGui(inst)
-    if not inst then return false end
-    for i,v in pairs(getreg().coreGuiCached) do
-        if inst==v then
-            return true;
-        else
-            if inst:IsDescendantOf(v) then
-                return true
-            end
-        end
-    end;return false
-end
 if not getgenv().protect_instance then getgenv().protect_instance, getgenv().unprotect_instance = loadstring(game:HttpGet("https://pastebin.com/raw/Ai9BnM07"))() end
 getreg().________________PU_LSEX = type(getreg().________________PU_LSEX)=="number" and getreg().________________PU_LSEX + 1 or 0;local ________________PU_LSEXS=tonumber((getreg().________________PU_LSEX));local function isver()return getreg().________________PU_LSEX==________________PU_LSEXS end
 -- [[---------------- [[ Hooking ]] ----------------]] --
@@ -58,10 +37,7 @@ __indexHook:new(newcclosure(function(checkcaller, callingscript, Self, Key, ...)
        end
        pcall(function()
            if type(Key)=="string" and Key:lower()=="name" and Self:IsA("ScreenGui") then
-              if not isPartOfCoreGui(Self) then
-                Self.DisplayOrder = 10
-                protect_instance(Self)
-              end
+              protect_instance(Self)
            end
        end)
     end
@@ -78,6 +54,6 @@ end))
 --end))
 -------------------------------- To be used as a module
 if not getgenv().dontprinthookmodule then
-	print("Hook Module v1.1 Loaded!")
+	print("Hook Module v1.1 Loaded!");
 end
 return __indexHook, __namecallHook, isver, Hooks, Hooks2
