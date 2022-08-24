@@ -3,7 +3,8 @@ local toConvert = {
         "getgenv"
     }
     Funcs = {
-        ["getreg"] = getloadedmodules -- Tell me about more
+        ["reg"] = getloadedmodules, -- For Synapse V3
+        ["getreg"] = getgc -- turns getreg into getgc
     }
 }
 -----------------------------
