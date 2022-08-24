@@ -2,7 +2,7 @@
 if getreg~=getgc then
    pcall(function()
        if isreadonly(getgenv()) then
-           setreadonly(getgenv(), false)
+           setreadonly(getgenv(), false) -- Incase Synapse V4 comes out or sum and makes getgenv an locked table
        end
    end) -- For future bugs incase they come, I already got an fix
    getgenv().getreg = getgenv and getgenv().getgc or getgc or getfenv and getfenv().getgc; -- For Synapse V3. I have access to it and the old hook-module didn't work because getreg is now a userdata
