@@ -3,6 +3,8 @@ local Misc = {
 }
 
 getgenv()[Misc.getreg] = getgenv()[Misc.getreg] or {}
+getgenv()[Misc.getreg].__LinenHooked = true
+
 local toConvert = {
     Table = {
         "getgenv"
@@ -19,11 +21,11 @@ for i,v in pairs(toConvert.Table) do
     if type(obj)=="function" then obj() end
     if type(obj)~="table" then continue; end
     for a,b in pairs(toConvert.Funcs) do
-        pcall(function()obj[a] = b;end)
+        if obj[a]~=b then obj[a] = b end
     end
 end
 for i,v in pairs(toConvert.Funcs) do
-    pcall(function()global[i] = v;end)
+    if global[i]~=v then global[i]=v end
 end
 return global -- Linen#3485, although credits don't matter
 --[[
