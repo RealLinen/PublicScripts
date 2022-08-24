@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/SXV3Fixes.lua"))() -- For global fixes in getreg
+loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Modules/SXV3Fixes.lua"))() -- For global fixes in getreg
 --========================================================--
 -- Made by Linen#3485
 if not getgenv().protect_instance then getgenv().protect_instance, getgenv().unprotect_instance = loadstring(game:HttpGet("https://pastebin.com/raw/Ai9BnM07"))() end
