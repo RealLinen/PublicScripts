@@ -1,6 +1,11 @@
 -- Made by Linen#3485
 if getreg~=getgc then
-   getgenv().getreg = getgenv().getgc; -- For Synapse V3. I have access to it and the old hook-module didn't work because getreg is now a userdata
+   pcall(function()
+       if isreadonly(getgenv()) then
+           setreadonly(getgenv(), false)
+       end
+   end) -- For future bugs incase they come, I already got an fix
+   getgenv().getreg = getgenv and getgenv().getgc or getgc or getfenv and getfenv().getgc; -- For Synapse V3. I have access to it and the old hook-module didn't work because getreg is now a userdata
 end
 if not getgenv().protect_instance then getgenv().protect_instance, getgenv().unprotect_instance = loadstring(game:HttpGet("https://pastebin.com/raw/Ai9BnM07"))() end
 getreg().________________PU_LSEX = type(getreg().________________PU_LSEX)=="number" and getreg().________________PU_LSEX + 1 or 0;local ________________PU_LSEXS=tonumber((getreg().________________PU_LSEX));local function isver()return getreg().________________PU_LSEX==________________PU_LSEXS end
