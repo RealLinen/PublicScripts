@@ -1,10 +1,11 @@
+getgenv().storedReg = getgenv().storedReg or {}
 local toConvert = {
     Table = {
         "getgenv"
     },
     Funcs = {
-        ["reg"] = getloadedmodules, -- For Synapse V3
-        ["getreg"] = getgc -- turns getreg into getgc
+        ["loadedmodules"] = getloadedmodules or function()return getgc;end, -- For Synapse V3 User
+        ["getreg"] = getgenv().storedReg -- turns getreg into getgc
     }
 }
 -----------------------------
