@@ -1,7 +1,7 @@
 local toConvert = {
     Table = {
         "getgenv"
-    }
+    },
     Funcs = {
         ["reg"] = getloadedmodules, -- For Synapse V3
         ["getreg"] = getgc -- turns getreg into getgc
