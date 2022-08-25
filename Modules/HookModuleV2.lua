@@ -32,28 +32,24 @@ for i,v in next, Methods do
         };Hooks[ v ].destroy=Hooks[v].delete;
     end
     -- [[|===>|;:>._.<:; | HOOKS | ;:>._.<:;|<===|]] --
-    task.delay(0, function(isver, Hooks, v)
-            Hooks[ v ].old = nil;
-            Hooks[ v ].old = hookmetamethod(game, v, newcclosure(function(...)if not isver() then return Hooks[v].old(...) end;local result;
+    Hooks[ v ].old = nil;
+     Hooks[ v ].old = hookmetamethod(game, v, newcclosure(function(...)if not isver() then return Hooks[v].old(...) end;local result;
             for i,z in pairs(Hooks[v]) do
                 if type(i)=="number" and type(z)=="function" then
-                    local resultX, output = pcall(function(z, ...)
-                        return { z({ 
-                            ["checkcaller"] = checkcaller, 
-                            ["getcallingscript"] = getcallingscript, 
-                            ["returning"] = function(...)
-                                return Hooks[v].old(...);
-                            end 
-                            ["namecallmethod"] = type(getnamecallmethod)=="function" and getnamecallmethod() or nil
-                            }, ...) 
-                        } -- This code is ugly, thats how i roll!
-                    end, z, checkcaller, getcallingscript, ...)
-                    if resultX then result = output end
-                end
+                local resultX, output = pcall(function(z, ...)
+                    return { z({ 
+                        ["checkcaller"] = checkcaller, 
+                        ["getcallingscript"] = getcallingscript, 
+                        ["returning"] = function(...) return Hooks[v].old(...); end 
+                        ["namecallmethod"] = type(getnamecallmethod)=="function" and getnamecallmethod() or nil
+                        }, ...) 
+                    } -- This code is ugly, thats how i roll!
+                end, z, checkcaller, getcallingscript, ...)
+                if resultX then result = output end
             end
-            return result and unpack(result)  or Hooks[v].old(...);
-        end))
-    end, isver, Hooks, v)
+        end
+        return result and unpack(result)  or Hooks[v].old(...);
+    end))
 end
 --|| ++++============================++++ ||-- End
 __cachedTime = tick() - __cachedTime
