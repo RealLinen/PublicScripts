@@ -1,4 +1,4 @@
---[[
+--[[ version: J.0.1
     HookModule V2 =>>
         * Faster than HookModule V1 [ by 3 seconds ]
         * More customization
@@ -33,7 +33,7 @@ for i,v in next, Methods do
     end
     -- [[|===>|;:>._.<:; | HOOKS | ;:>._.<:;|<===|]] --
     Hooks[ v ].old = nil;
-     Hooks[ v ].old = hookmetamethod(game, v, newcclosure(function(...)if not isver() then return Hooks[v].old(...) end;local result;
+    Hooks[ v ].old = hookmetamethod(game, v, newcclosure(function(...)if not isver() then return Hooks[v].old(...) end;local result;
             for i,z in pairs(Hooks[v]) do
                 if type(i)=="number" and type(z)=="function" then
                 local resultX, output = pcall(function(z, ...)
