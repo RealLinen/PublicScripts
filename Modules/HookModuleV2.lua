@@ -41,8 +41,10 @@ for i,v in next, Methods do
                         return { z({ 
                             ["checkcaller"] = checkcaller, 
                             ["getcallingscript"] = getcallingscript, 
-                            ["returning "] = function(...)
-                                return Hooks[v].old(...);end 
+                            ["returning"] = function(...)
+                                return Hooks[v].old(...);
+                            end 
+                            ["namecallmethod"] = type(getnamecallmethod)=="function" and getnamecallmethod() or nil
                             }, ...) 
                         } -- This code is ugly, thats how i roll!
                     end, z, checkcaller, getcallingscript, ...)
@@ -85,6 +87,8 @@ __indexHook:new(function(Data, Self, Key, ...) -- Already uses newcclousure
 
                                                  local result = Data.returning(Self, Key, ...)
                                                  print(result) -- will print what the normal response of the hook is
+           ( FOR __namecall ONLY ) namecallmethod: string -- The NameCallMethod, Example:
+                                                 game:GGMZZZZ(), 'GGMZZZZ' would be the namecallmethod and Self would be game
                                                  
     ]]
     -- If you don't return anything, it return the normal call/what it would normally return
