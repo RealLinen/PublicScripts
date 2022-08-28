@@ -1,5 +1,5 @@
 -- Linen#3485 Scripting Session Below --
---[[ version: J.0.1
+--[[ version: J.0.2
     HookModule V2 =>>
         * Faster than HookModule V1 [ by 3 seconds ]
         * More customization
