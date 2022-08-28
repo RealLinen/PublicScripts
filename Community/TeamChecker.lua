@@ -568,13 +568,19 @@ local Modules = {
 };
 };
 
+local Module = Modules[game.PlaceId];
 if Modules[game.PlaceId] ~= nil then
-	local Module = Modules[game.PlaceId];
 	CustomPlayerTag = Module.CustomPlayerTag or nil;
 	CustomESP = Module.CustomESP or nil;
 	CustomCharacter = Module.CustomCharacter or nil;
 	GetHealth = Module.GetHealth or nil;
 	GetAliveState = Module.GetAliveState or nil;
 	CustomRootPartName = Module.CustomRootPartName or nil;
-    return { Module.CustomCharacter, Module }
 end
+return {
+    Character = CustomCharacter or function() 
+        return LocalPlayer.Character
+    end,
+    Module = Module
+}
+
