@@ -227,7 +227,7 @@ local Modules = {
 					continue
 				end
 
-				Player.Character = nil;
+				--Player.Character = nil;
 			end
 		end,
 
