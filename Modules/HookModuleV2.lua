@@ -1,5 +1,5 @@
 -- Linen#3485 Scripting Session Below --
---[[ version: J.0.2
+--[[ version: J.0.3
     HookModule V2 =>>
         * Faster than HookModule V1 [ by 3 seconds ]
         * More customization
@@ -92,7 +92,7 @@ __indexHook:new(function(Data, Self, Key, ...) -- Already uses newcclousure
     -- Fun fact: If you want to break the game, put: return "break"
 end)
 -- [[|===>|;:>._.<:; | Returning Module | ;:>._.<:;|<===|]] --
-getgenv().isver = isver;
+Hooks.isver = isver;
 return Hooks --[[
     {
         ["__index"] = {
