@@ -218,7 +218,7 @@ local Modules = {
 			end
 
 			for Index, Player in pairs(Players:GetPlayers()) do
-				if Player == LocalPlayer then continue end
+				--if Player == LocalPlayer then continue end
 
 				local Body = shared.PF_Replication.getbodyparts(Player);
 
