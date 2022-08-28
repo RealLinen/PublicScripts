@@ -1,3 +1,4 @@
+-- Linen#3485 Scripting Session Below --
 --[[ version: J.0.1
     HookModule V2 =>>
         * Faster than HookModule V1 [ by 3 seconds ]
@@ -40,7 +41,7 @@ for i,v in next, Methods do
                     return { z({ 
                         ["checkcaller"] = checkcaller, 
                         ["getcallingscript"] = getcallingscript, 
-                        ["returning"] = function(...) return Hooks[v].old(...); end 
+                        ["returning"] = function(...) return Hooks[v].old(...); end,
                         ["namecallmethod"] = type(getnamecallmethod)=="function" and getnamecallmethod() or nil
                         }, ...) 
                     } -- This code is ugly, thats how i roll!
