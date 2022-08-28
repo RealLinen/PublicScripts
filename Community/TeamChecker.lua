@@ -576,5 +576,5 @@ if Modules[game.PlaceId] ~= nil then
 	GetHealth = Module.GetHealth or nil;
 	GetAliveState = Module.GetAliveState or nil;
 	CustomRootPartName = Module.CustomRootPartName or nil;
+    return { Module.CustomCharacter, Module }
 end
-return { PlayerTag = CustomPlayerTag, Character = Player.Character or CustomCharacter(LocalPlayer), RootName = CustomRootPartName or "HumanoidRootPart" }
