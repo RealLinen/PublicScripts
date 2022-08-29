@@ -578,9 +578,8 @@ if Modules[game.PlaceId] ~= nil then
 	CustomRootPartName = Module.CustomRootPartName or nil;
 end
 return {
-    Character = CustomCharacter or function() 
-        return LocalPlayer.Character
-    end,
+    Character = CustomCharacter or function() return LocalPlayer.Character end,
+    Teams = Teams,
     Module = Module
 }
 
