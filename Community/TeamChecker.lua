@@ -577,6 +577,13 @@ if Modules[game.PlaceId] ~= nil then
 	GetAliveState = Module.GetAliveState or nil;
 	CustomRootPartName = Module.CustomRootPartName or nil;
 end
+if CustomTeams[game.PlaceId] then Teams = CustomTeams[game.PlaceId] else 
+Teams = {
+    CheckTeam = function(Player)
+	 if Player.Team and LocalPlayer.Team then return Player.Team.Name==LocalPlayer.Team.Name end;return nil
+    end	
+}
+end
 return {
     Character = CustomCharacter or function() return LocalPlayer.Character end,
     Teams = Teams,
