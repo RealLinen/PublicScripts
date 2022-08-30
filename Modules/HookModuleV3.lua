@@ -13,13 +13,13 @@ for i,v in pairs(ToHook) do
     if type(v)=="string" then
         if getreg().cachedHookMethod[v] and restorefunction then
             local suc, msg = pcall(function() return restorefunction(getrawmetatable(game)[v]) end)
-            if suc then getreg().cachedHookMethod[v] = nil;print("Resetted '"..v.."' Hook: "..tostring(msg)) end
+            if suc then getreg().cachedHookMethod[v] = nil;if not getgenv().LinenHookModuleNodebug then print("Resetted '"..v.."' Hook: "..tostring(msg)) end end
         end
         if type(getreg().cachedHookMethod[v.."_"])~="table" then
             getreg().cachedHookMethod[v.."_"] = {}
         end
         if not getreg().cachedHookMethod[v] then
-            print("[ Hooked ] : "..v)
+            if not getgenv().LinenHookModuleNodebug then print("[ Hooked ] : "..v) end
             getreg().cachedHookMethod[v] = hookmetamethod(game, v, newcclosure(function(...)
                  local Args = {...}
                  local result;
@@ -78,7 +78,7 @@ end
     ]]
 --end)
 --========================================================--
-print("==============================================")
+if not getgenv().LinenHookModuleNodebug then print("==============================================") end
 getreg().HookModuleV3ByLinenLoading = false
 HookedTable.isver = isver;return HookedTable --[[
     ["__index"] = {
