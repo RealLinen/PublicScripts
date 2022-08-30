@@ -33,8 +33,9 @@ for i,v in next, Methods do
         };Hooks[ v ].destroy=Hooks[v].delete;
     end
     -- [[|===>|;:>._.<:; | HOOKS | ;:>._.<:;|<===|]] --
-    Hooks[ v ].old = nil;
-    Hooks[ v ].old = hookmetamethod(game, v, newcclosure(function(...)if not isver() then return Hooks[v].old(...) end;local result;
+    task.delay(0, function(Hooks, v)
+        Hooks[ v ].old = nil;
+        Hooks[ v ].old = hookmetamethod(game, v, newcclosure(function(...)if not isver() then return Hooks[v].old(...) end;local result;
             for i,z in pairs(Hooks[v]) do
                 if type(i)=="number" and type(z)=="function" then
                 local resultX, output = pcall(function(z, ...)
@@ -50,7 +51,8 @@ for i,v in next, Methods do
             end
         end
         return result and unpack(result)  or Hooks[v].old(...);
-    end))
+    end))    
+    end, Hooks, v)
 end
 --|| ++++============================++++ ||-- End
 __cachedTime = tick() - __cachedTime
