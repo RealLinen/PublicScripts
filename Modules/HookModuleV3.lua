@@ -1,4 +1,6 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Modules/SXV3Fixes.lua"))() -- For global fixes in getreg
+repeat task.wait() until not getreg().HookModuleV3ByLinenLoading
+getreg().HookModuleV3ByLinenLoading = true
 --========================================================--
 local __cachedTime: number, ENV: {} = tick(), nil;
 getreg().cachedHookMethod = type(getreg().cachedHookMethod)=="table" and getreg().cachedHookMethod or {}
@@ -77,6 +79,7 @@ end
 --end)
 --========================================================--
 print("==============================================")
+getreg().HookModuleV3ByLinenLoading = false
 HookedTable.isver = isver;return HookedTable --[[
     ["__index"] = {
         new: function,
