@@ -4,7 +4,7 @@ local Misc = {
 
 getgenv()[Misc.getreg] = getgenv()[Misc.getreg] or {}
 --------
-getgenv()["getreg"] = getgenv()[Misc.getreg] -- Makes getreg writeable
+getgenv()["getreg"] = function()return (getgenv()[Misc.getreg] or {}) end -- Makes getreg writeable
 -------
 getgenv()[Misc.getreg].__LinenHooked = true
 --[[
