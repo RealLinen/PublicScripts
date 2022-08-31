@@ -2,7 +2,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScrip
 repeat task.wait() until not getreg().HookModuleV3ByLinenLoading
 getreg().HookModuleV3ByLinenLoading = true
 --========================================================--
-local __cachedTime: number, ENV: {} = tick(), nil;
+local __cachedTime, ENV = tick(), nil;
 getreg().cachedHookMethod = type(getreg().cachedHookMethod)=="table" and getreg().cachedHookMethod or {}
 local ToHook = { "__index", "__namecall" }
 local HookedTable = {}
