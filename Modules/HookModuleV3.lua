@@ -6,10 +6,10 @@ local function resetHookMethod(v)
 end
 local function InstallizeTable(tb) 
     if type(tb)~="table" then return; end
-    function tb:new(self, func)
+    function tb:new(func)
         tb[#tb+1] = func
     end
-    function tb:remove(self, int) 
+    function tb:remove(int) 
         tb[(int or #tb)] = nil
     end
 end
