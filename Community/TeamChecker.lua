@@ -1,103 +1,16 @@
 -- Credits: https://github.com/ic3w0lf22/Unnamed-ESP/blob/master/UnnamedESP.lua
 --
-local UserInputService	= game:GetService'UserInputService';
 local HttpService	= game:GetService'HttpService';
-local GUIService	= game:GetService'GuiService';
-local TweenService	= game:GetService'TweenService';
-local RunService	= game:GetService'RunService';
 local Players		= game:GetService'Players';
 local LocalPlayer	= Players.LocalPlayer;
-local Camera		= workspace.CurrentCamera;
-local Mouse		= LocalPlayer:GetMouse();
-local V2New		= Vector2.new;
-local V3New		= Vector3.new;
-local WTVP		= Camera.WorldToViewportPoint;
-local WorldToViewport	= function(...) return WTVP(Camera, ...) end;
-local Menu		= {};
-local MouseHeld		= false;
-local LastRefresh	= 0;
-local OptionsFile	= 'IC3_ESP_SETTINGS.dat';
-local Binding		= false;
-local BindedKey		= nil;
-local OIndex		= 0;
-local LineBox		= {};
-local UIButtons		= {};
-local Sliders		= {};
-local ColorPicker	= { Loading = false; LastGenerated = 0 };
-local Dragging		= false;
-local DraggingUI	= false;
-local Rainbow		= false;
-local DragOffset	= V2New();
-local DraggingWhat	= nil;
-local OldData		= {};
-local IgnoreList	= {};
-local EnemyColor	= Color3.new(1, 0, 0);
-local TeamColor		= Color3.new(0, 1, 0);
-local MenuLoaded	= false;
-local ErrorLogging	= false;
-local TracerPosition	= V2New(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y - 135);
-local DragTracerPosition= false;
-local SubMenu 		= {};
-local IsSynapse 	= syn and not PROTOSMASHER_LOADED;
-local Connections 	= { Active = {} };
 local Signal 		= {}; Signal.__index = Signal;
 local GetCharacter;
-local CurrentColorPicker;
-local Spectating;
-
-local Executor = (identifyexecutor or (function() return '' end))()
-local SupportedExploits = { 'Synapse X', 'ScriptWare', 'Krnl', 'OxygenU', 'Temple' }
-local QUAD_SUPPORTED_EXPLOIT = table.find(SupportedExploits, Executor) ~= nil
-
--- if not PROTOSMASHER_LOADED then Drawing.UseCompatTransparency = true; end -- For Elysian
-
-shared.MenuDrawingData	= shared.MenuDrawingData or { Instances = {} };
-shared.InstanceData	= shared.InstanceData or {};
-shared.RSName		= shared.RSName or ('UnnamedESP_by_ic3-' .. HttpService:GenerateGUID(false));
-
-local GetDataName	= shared.RSName .. '-GetData';
-local UpdateName	= shared.RSName .. '-Update';
-
-local Debounce		= setmetatable({}, {
-	__index = function(t, i)
-		return rawget(t, i) or false
-	end;
-});
-
-if shared.UESP_InputChangedCon then shared.UESP_InputChangedCon:Disconnect() end
-if shared.UESP_InputBeganCon then shared.UESP_InputBeganCon:Disconnect() end
-if shared.UESP_InputEndedCon then shared.UESP_InputEndedCon:Disconnect() end
-if shared.CurrentColorPicker then shared.CurrentColorPicker:Dispose() end
-
-local RealPrint, LastPrintTick = print, 0;
-local LatestPrints = setmetatable({}, { __index = function(t, i) return rawget(t, i) or 0 end });
-
-local function print(...)
-	local Content = unpack{...};
-	local print = RealPrint;
-
-	if tick() - LatestPrints[Content] > 5 then
-		LatestPrints[Content] = tick();
-		print(Content);
-	end
-end
-
-local function FromHex(HEX)
-	HEX = HEX:gsub('#', '');
-	
-	return Color3.fromRGB(tonumber('0x' .. HEX:sub(1, 2)), tonumber('0x' .. HEX:sub(3, 4)), tonumber('0x' .. HEX:sub(5, 6)));
-end
 
 local function IsStringEmpty(String)
 	if type(String) == 'string' then
 		return String:match'^%s+$' ~= nil or #String == 0 or String == '' or false;
 	end
-	
 	return false;
-end
-
-local function Set(t, i, v)
-	t[i] = v;
 end
 
 local Teams = {};
@@ -183,18 +96,10 @@ local CustomTeams = { -- Games that don't use roblox's team system
 };
 
 local RenderList = {Instances = {}};
-
 function RenderList:AddOrUpdateInstance(Instance, Obj2Draw, Text, Color)
 	RenderList.Instances[Instance] = { ParentInstance = Instance; Instance = Obj2Draw; Text = Text; Color = Color };
 	return RenderList.Instances[Instance];
 end
-
-local CustomPlayerTag;
-local CustomESP;
-local CustomCharacter;
-local GetHealth;
-local GetAliveState;
-local CustomRootPartName;
 
 local Modules = {
 	[292439477] = {
@@ -220,14 +125,11 @@ local Modules = {
 
 			for Index, Player in pairs(Players:GetPlayers()) do
 				--if Player == LocalPlayer then continue end
-
 				local Body = shared.PF_Replication.getbodyparts(Player);
-
 				if type(Body) == 'table' and typeof(rawget(Body, 'torso')) == 'Instance' then
 					Player.Character = Body.torso.Parent
 					continue
 				end
-
 				--Player.Character = nil;
 			end
 		end,
@@ -590,4 +492,3 @@ return {
     Teams = Teams,
     Module = Module
 }
-
