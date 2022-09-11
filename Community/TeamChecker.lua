@@ -489,6 +489,10 @@ Teams = {
 end
 return {
     Character = CustomCharacter or function() return LocalPlayer.Character end,
-    Teams = Teams,
-    Module = Module
+    Teams = (Teams or {
+        CheckTeam = function(Player)
+         if Player and LocalPlayer and Player.Team and LocalPlayer.Team then return Player.Team.Name==LocalPlayer.Team.Name end;return nil
+        end	
+    }),
+    Module = (Module or {})
 }
