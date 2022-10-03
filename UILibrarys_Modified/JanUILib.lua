@@ -11,7 +11,7 @@ end
 local library = {design = getgenv().design == "kali" and "kali" or "uwuware", tabs = {}, draggable = true, flags = {}, title = "Anti-Venom", open = false, popup = nil, instances = {}, connections = {}, options = {}, notifications = {}, tabSize = 0, theme = {}, foldername = "cheatx_cnfgs", fileext = ".txt"}
 getgenv().library = library
 
---Locals
+--Localsr
 local dragging, dragInput, dragStart, startPos, dragObject
 
 local blacklistedKeys = { --add or remove keys if you find the need to
