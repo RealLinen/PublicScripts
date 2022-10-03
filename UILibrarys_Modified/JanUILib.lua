@@ -2449,7 +2449,7 @@ function library:Init()
 
     self.base = library:Create("ScreenGui", {IgnoreGuiInset = true, ZIndexBehavior = Enum.ZIndexBehavior.Global})
     protect_instance(self.base)
-    self.base.Parent = game:GetService("CoreGui")
+    self.base.Parent = playerGUI
     
     self.main = self:Create("ImageButton", {
         AutoButtonColor = false,
