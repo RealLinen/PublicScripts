@@ -1,4 +1,6 @@
-getgenv().protect_instance, getgenv().unprotect_instance = loadstring(game:HttpGet("https://pastebin.com/raw/Ai9BnM07"))()
+local a=game:GetService("CoreGui")local b={}for c,d in pairs(a.GetDescendants(a))do if d.IsA(d,"ImageLabel")and d.Image:find('rbxasset://')then table.insert(b,d.Image)end end;local e;e=hookfunction(game:GetService("ContentProvider").PreloadAsync,function(self,...)local f={...}if not checkcaller()and type(f[1])=="table"and table.find(f[1],a)then f[1]=b;return e(self,unpack(f))end;return e(self,...)end)local function g(h)if h=="PreloadAsync"or h=="preloadAsync"then return true end;return false end;local i;i=hookmetamethod(game,"__namecall",function(j,...)local f={...}local k=getnamecallmethod()if not checkcaller()and type(f[1])=="table"and table.find(f[1],a)and j==game.GetService(game,"ContentProvider")and g(k)then f[1]=b;return i(j,unpack(f))end;return i(j,...)end)
+--LIBRARY START
+--Services
 getgenv().runService = game:GetService"RunService"
 getgenv().textService = game:GetService"TextService"
 getgenv().inputService = game:GetService"UserInputService"
@@ -8,10 +10,10 @@ if getgenv().library then
     getgenv().library:Unload()
 end
 
-local library = {design = getgenv().design == "kali" and "kali" or "uwuware", tabs = {}, draggable = true, flags = {}, title = "Anti-Venom", open = false, popup = nil, instances = {}, connections = {}, options = {}, notifications = {}, tabSize = 0, theme = {}, foldername = "cheatx_cnfgs", fileext = ".txt"}
+local library = {design = getgenv().design == "kali" and "kali" or "uwuware", tabs = {}, draggable = true, flags = {}, title = "", open = false, popup = nil, instances = {}, connections = {}, options = {}, notifications = {}, tabSize = 0, theme = {}, foldername = "lib_linen_confgx", fileext = ".txt"}
 getgenv().library = library
 
---Localsr
+--Locals
 local dragging, dragInput, dragStart, startPos, dragObject
 
 local blacklistedKeys = { --add or remove keys if you find the need to
@@ -890,7 +892,7 @@ library.createList = function(option, parent)
     option.arrow = library:Create("ImageLabel", {
         Position = UDim2.new(1, -16, 0, 7),
         Size = UDim2.new(0, 8, 0, 8),
-        Rotation = -90,
+        Rotation = 90,
         BackgroundTransparency = 1,
         Image = "rbxassetid://4918373417",
         ImageColor3 = Color3.new(1, 1, 1),
@@ -970,7 +972,7 @@ library.createList = function(option, parent)
             if library.popup then
                 library.popup:Close()
             end
-            option.arrow.Rotation = 90
+            option.arrow.Rotation = -90
             option.open = true
             option.holder.Visible = true
             local pos = option.main.AbsolutePosition
@@ -1138,7 +1140,7 @@ library.createList = function(option, parent)
 
     function option:Close()
         library.popup = nil
-        option.arrow.Rotation = -90
+        option.arrow.Rotation = 90
         self.open = false
         option.holder.Visible = false
         option.listvalue.BorderColor3 = Color3.new()
@@ -2444,13 +2446,16 @@ end
 
 function library:Init()
     if self.hasInit then return end
-    local playerGUI = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui", 1000)
     self.hasInit = true
 
-    self.base = library:Create("ScreenGui", {IgnoreGuiInset = true, ZIndexBehavior = Enum.ZIndexBehavior.Global})
-    protect_instance(self.base)
-    self.base.Parent = playerGUI
-    
+    self.base = library:Create("ScreenGui", {IgnoreGuiInset = true, ZIndexBehavior = Enum.ZIndexBehavior.Global, DisplayOrder = 10000 })
+    if runService:IsStudio() then
+        self.base.Parent = script.Parent.Parent
+    elseif syn then
+        pcall(function() self.base.RobloxLocked = true end)
+        self.base.Parent = game:GetService("CoreGui")
+    end
+
     self.main = self:Create("ImageButton", {
         AutoButtonColor = false,
         Position = UDim2.new(0, 100, 0, 46),
@@ -2701,3 +2706,5 @@ local function promptLib()
         return Prompt,Screen
     end
 end 
+
+--LIBRARY END
