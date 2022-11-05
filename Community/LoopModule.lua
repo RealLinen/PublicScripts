@@ -1,6 +1,6 @@
 local RunService = game:GetService("RunService")
 local isver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))();
-local LoopModule = {}
+local LoopModule = { ["isver"] = isver }
 local Calling = 1
 local Heartbeat = RunService.Heartbeat:Connect(function(deltaTime, ...)
     if not isver() then return; end
