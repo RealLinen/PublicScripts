@@ -120,7 +120,7 @@ if typeof(Rayfield)=="Instance" and Rayfield:IsA("ScreenGui") then
 end
 Rayfield.Parent = CoreGui
 
-if gethui then
+if 2>5 then
 	for _, Interface in ipairs(gethui():GetChildren()) do
 		if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
 			Interface.Enabled = false
