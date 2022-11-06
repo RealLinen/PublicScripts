@@ -115,6 +115,9 @@ local CoreGui = game:GetService("CoreGui")
 
 -- Interface Management
 local Rayfield = game:GetObjects("rbxassetid://10804731440")[1]
+if typeof(Rayfield)=="Instance" and Rayfield:IsA("ScreenGui") then
+    Rayfield.DisplayOrder = 300
+end
 Rayfield.Parent = CoreGui
 
 if gethui then
