@@ -7,12 +7,14 @@ local Heartbeat = RunService.Heartbeat:Connect(function(deltaTime, ...)
     if type(Calling)~="number" then return; end
     local func = LoopModule[Calling]
     if type(func)~="function" then Calling = 1;return true end;Calling = Calling + 1
-    pcall(func, deltaTime, ...)
+    local suc,err = pcall(func, deltaTime, ...);if not suc then warn(err) end
 end)
 setmetatable(LoopModule, {
     __call = function(tb, func)
         if type(func)=="function" then
-            LoopModule[#LoopModule+1] = func
+            local newInt = #LoopModule+1
+            LoopModule[newInt] = func
+            return newInt
         end
     end
 })
