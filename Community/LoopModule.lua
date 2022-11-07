@@ -21,11 +21,13 @@ setmetatable(LoopModule, {
     end
 })
 -----------------------
-return LoopModule, (function()
+task.delay(0, function()
     repeat task.wait() until Heartbeat and not isver()
     pcall(function()
         Heartbeat:Disconnect()
         Heartbeat:Unconnect()
         Heartbeat:Remove()
     end)
-end)()
+end)
+
+return LoopModule
