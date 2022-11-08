@@ -8,8 +8,9 @@ local Heartbeat = RunService.Heartbeat:Connect(function(deltaTime, ...)
     if type(Calling)~="number" then return; end
     local func = LoopModule[Calling]
     local oldCalling = Calling
-    if type(func)~="function" then Calling = 1;return true end;Calling = Calling + 1
-    local suc,err = pcall(func, deltaTime, ...);if not suc then warn(string.format("LoopModule Function #%s Errored:\n%s", oldCalling, err)); end;
+    if type(func)~="function" then Calling = 1;return true end;Calling = Calling + 1;
+    if ThisData["Running"][oldCalling] then return; end;ThisData["Running"][oldCalling] = true
+    local suc,err = pcall(func, deltaTime, ...);if not suc then warn(string.format("LoopModule Function #%s Errored:\n%s", oldCalling, err)); end;ThisData["Running"][oldCalling] = nil
 end)
 setmetatable(LoopModule, {
     __call = function(tb, func)
