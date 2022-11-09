@@ -7,7 +7,7 @@ shlex | Designing + Programming
 iRay  | Programming
 
 ]]
-
+if not ProtectInstance then loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua"))() end
 
 
 local Release = "Beta 7R"
@@ -111,13 +111,14 @@ local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
-local CoreGui = game.CoreGui
+local CoreGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui", 500) or game:GetService("CoreGui")
 
 -- Interface Management
 local Rayfield = game:GetObjects("rbxassetid://10804731440")[1]
 if typeof(Rayfield)=="Instance" and Rayfield:IsA("ScreenGui") then
     Rayfield.DisplayOrder = 300
 end
+ProtectInstance(Rayfield)
 Rayfield.Parent = CoreGui
 
 if 2>5 then
