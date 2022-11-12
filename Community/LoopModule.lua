@@ -2,33 +2,26 @@ local RunService = game:GetService("RunService")
 local isver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))();
 local LoopModule = { ["isver"] = isver }
 local ThisData = { ["Running"] = {} }
-local Calling = 1
-local Heartbeat = RunService.Heartbeat:Connect(function(deltaTime, ...)
-    if not isver() then return; end
-    if type(Calling)~="number" then return; end
-    local func = LoopModule[Calling]
-    local oldCalling = Calling
-    if type(func)~="function" then Calling = 1;return true end;Calling = Calling + 1;
-    if ThisData["Running"][oldCalling] then return; end;ThisData["Running"][oldCalling] = true
-    local suc,err = pcall(func, deltaTime, ...);if not suc then warn(string.format("LoopModule Function #%s Errored:\n%s", oldCalling, err)); end;ThisData["Running"][oldCalling] = nil
+---------------------------------------------
+task.spawn(function()
+    while task.wait() and isver() do
+        for i,v in pairs(LoopModule) do
+            if type(i)=="number" and type(v)=="function" then
+                local suc,err = pcall(task.spawn, v)
+                if not suc then warn(string.format("(%s) [ LoopModule -> Error ]:\n%s", i, err)) end
+            end
+        end
+    end
 end)
+---------------------------------------------
 setmetatable(LoopModule, {
-    __call = function(tb, func)
+    __call = function(tb, func, customM)
+        customM = (type(customM)=="string" or type(customM)=="number") and customM or (#LoopModule+1)
         if type(func)=="function" then
-            local newInt = #LoopModule+1
-            LoopModule[newInt] = func
-            return newInt
+            LoopModule[customM] = func
+            return customM
         end
     end
 })
 -----------------------
-task.delay(0, function()
-    repeat task.wait() until Heartbeat and not isver()
-    pcall(function()
-        Heartbeat:Disconnect()
-        Heartbeat:Unconnect()
-        Heartbeat:Remove()
-    end)
-end)
-
 return LoopModule
