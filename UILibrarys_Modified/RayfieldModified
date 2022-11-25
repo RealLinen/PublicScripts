@@ -111,6 +111,7 @@ local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local CGUI = game:GetService("CoreGui")
 local CoreGui = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui", 500) or game:GetService("CoreGui")
 
 -- Interface Management
@@ -118,8 +119,11 @@ local Rayfield = game:GetObjects("rbxassetid://10804731440")[1]
 if typeof(Rayfield)=="Instance" and Rayfield:IsA("ScreenGui") then
     Rayfield.DisplayOrder = 300
 end
-ProtectInstance(Rayfield)
+if getgenv().UIPG then
 Rayfield.Parent = CoreGui
+else
+Rayfield.Parent = CGUI
+end
 
 if 2>5 then
 	for _, Interface in ipairs(gethui():GetChildren()) do
