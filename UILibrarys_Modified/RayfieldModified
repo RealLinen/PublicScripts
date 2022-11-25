@@ -7,7 +7,6 @@ shlex | Designing + Programming
 iRay  | Programming
 
 ]]
-if not ProtectInstance then loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua"))() end
 
 
 local Release = "Beta 7R"
@@ -120,6 +119,9 @@ if typeof(Rayfield)=="Instance" and Rayfield:IsA("ScreenGui") then
     Rayfield.DisplayOrder = 300
 end
 if getgenv().UIPG then
+if not ProtectInstance then loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua"))() end
+repeat task.wait() until ProtectInstance
+ProtectInstance(Rayfield)
 Rayfield.Parent = CoreGui
 else
 Rayfield.Parent = CGUI
