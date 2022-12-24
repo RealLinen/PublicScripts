@@ -1,5 +1,5 @@
 ---@diagnostic disable: undefined-global
-loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua"))();
+--loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisInstanceProtect.lua"))();
 --==========================================================================--
 local Format = string.format;
 local TS, UIS, HttpService, Players = game:GetService("TeleportService"), game:GetService("UserInputService"), game:GetService("HttpService"), game:GetService("Players")
