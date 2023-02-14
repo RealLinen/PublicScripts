@@ -52,11 +52,15 @@ old__namecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     for i,v in pairs(__index) do
         if (type(i)=="number" or type(i)=="string") and type(v)=="function" then
             called = {v(DataTable, ...)}
-            if called[1]=="__nil" then called = { nil };break; end
+            if called[1]=="__nil" then called = { "__nil" };break; end
             if called[1] then break; end
         end
-    end
-    return called and unpack(called) or old__namecall(...)
+    end;
+    called = type(called)=="table" and called or {}
+    if called[1]=="__nil" then return nil; end
+    local found = unpack(called)
+    if found==nil then return old__namecall(...) end
+    return found
 end))
 --========================================================--
 --[[
@@ -71,4 +75,4 @@ HookModuleV3["__namecall"]:new(function(data, Self, ...)
 end)
 ]]
 --========================================================--
-return { ["__index"] = __index, ["__namecall"] = __namecall, ["isver"] = isver }
+return { ["__index"] = __index, ["__namecall"] = __namecall, ["isver"] = isver, ["Creator"] = "Linen#3485" }
