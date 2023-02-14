@@ -24,23 +24,6 @@ InstallizeTable(__index)
 InstallizeTable(__namecall)
 --========================================================--
 local old__index, old__namecall;
-old__index = hookmetamethod(game, "__index", newcclosure(function(Self, Key, ...)
-    local called;
-    local DataTable = {
-        ["checkcaller"] = checkcaller, 
-        ["getcallingscript"] = getcallingscript, 
-        ["returning"] = function(...) return old__index(Self, Key, ...); end,
-        ["namecallmethod"] = type(getnamecallmethod)=="function" and getnamecallmethod() or nil
-    };if not isver() then return old__index(Self, Key, ...) end
-    for i,v in pairs(__index) do
-        if (type(i)=="number" or type(i)=="string") and type(v)=="function" then
-            called = {v(DataTable, Self, Key, ...)}
-            if called[1]=="__nil" then called = { nil };break; end
-            if called[1] then break; end
-        end
-    end
-    return called and unpack(called) or old__index(Self, Key, ...)
-end))
 old__namecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
     local called;
     local DataTable = {
