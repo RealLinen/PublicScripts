@@ -1,5 +1,5 @@
 -- Linen#3485 Scripting Session Below --
---[[ version: J.0.4
+--[[ version: J.0.5
     HookModule V2 =>>
         * Faster than HookModule V1 [ by 3 seconds ]
         * More customization
@@ -18,7 +18,7 @@ local function resetHookMethod(v)
     if suc then return true end;return false, msg
 end
 ----------------------------
-task.delay(0, function()
+task.spawn(function()
     if not getgenv().protect_instance then getgenv().protect_instance, getgenv().unprotect_instance = loadstring(game:HttpGet("https://pastebin.com/raw/Ai9BnM07"))() end
 end)
 --|| ++++============================++++ ||--
@@ -41,7 +41,7 @@ for i,v in next, Methods do
         };Hooks[ v ].destroy=Hooks[v].delete;
     end
     -- [[|===>|;:>._.<:; | HOOKS | ;:>._.<:;|<===|]] --
-    task.delay(0, function(Hooks, v)
+    task.spawn(function(Hooks, v)
         Hooks[ v ].old = nil;
         Hooks[ v ].old = hookmetamethod(game, v, newcclosure(function(...)if not isver() then return Hooks[v].old(...) end;local result;
             for i,z in pairs(Hooks[v]) do
@@ -74,7 +74,7 @@ local __namecallHook = Hooks["__namecall"]
 __indexHook:new(function(Data, Self, Key, ...) -- Already uses newcclousure
     --[[
         Data: table 0x......
-            checkcaller: function [ If its fired by synapse or the game ] -- Usage Example:
+            checkcaller: function [ If its fired by synapse/ur exploit or the game ] -- Usage Example:
 
                                                  local ischeckcaller = Data.checkcaller()
                                                  if ischeckcaller then
