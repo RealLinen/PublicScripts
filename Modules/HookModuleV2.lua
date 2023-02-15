@@ -10,7 +10,14 @@
 local __cachedTime: number, ENV: {} = tick(), nil;
 getgenv().__LinenData = type(getgenv().__LinenData)=="table" and getgenv().__LinenData or {}
 getreg = getloadedmodules and function()return getgenv().__LinenData;end or getreg;ENV = getreg() -- For synapse V3
-getreg().________________PU_LSEX = type(getreg().________________PU_LSEX)=="number" and getreg().________________PU_LSEX + 1 or 0;local ________________PU_LSEXS=tonumber((getreg().________________PU_LSEX))local isver = function()return getreg().________________PU_LSEX==________________PU_LSEXS end
+----------------------------
+local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
+--========================================================--
+local function resetHookMethod(v)
+    local suc, msg = pcall(function() return restorefunction(getrawmetatable(game)[v]) end)
+    if suc then return true end;return false, msg
+end
+----------------------------
 task.delay(0, function()
     if not getgenv().protect_instance then getgenv().protect_instance, getgenv().unprotect_instance = loadstring(game:HttpGet("https://pastebin.com/raw/Ai9BnM07"))() end
 end)
@@ -20,6 +27,7 @@ local Methods = { "__namecall", "__index" } -- can keep on adding
 --|| ++++============================++++ ||--
 for i,v in next, Methods do
     if type(Hooks[v])~="table" or not(Hooks[v].new or Hooks[v].delete) then
+        resetHookMethod(v)
         Hooks[v] = { 
             new = function(self, func)
                 if typeof(func)~="function" then return false; end
