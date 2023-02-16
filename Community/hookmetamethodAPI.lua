@@ -1,5 +1,5 @@
 -- Created by Linen#3485
--- V3rmillion Thread: 
+-- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1201899
 
 local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
 --========================================================--
