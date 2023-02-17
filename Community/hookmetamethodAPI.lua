@@ -11,7 +11,8 @@
 
 -- Created By: Linen#3485
 -- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1201899
--- Version 0.1
+-- Version 0.2
+------------------------------------------------------
 local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
 --========================================================--
 local function resetHookMethod(v)
