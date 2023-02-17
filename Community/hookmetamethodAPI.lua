@@ -7,6 +7,8 @@
     Instance.unlock, Instance.rmvlock || Instance.unlock("Property") -- self explanitory, makes it so you can change the Property of that Instance again
 ]]
 
+-- Created By: Linen#3485
+-- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1201899
 -- Version 0.1
 local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
 --========================================================--
@@ -99,3 +101,4 @@ local oldNewIndex;oldNewIndex = hookmetamethod(game, "__newindex", newcclosure(f
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     return defaultValue()
 end))
+print("hookmetamethodAPI_Loaded")
