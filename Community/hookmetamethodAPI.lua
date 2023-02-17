@@ -1,6 +1,13 @@
--- Created by Linen#3485
--- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1201899
+--[[ Usage: 
+    Instance: Basically anything [ table, humanoid, baseplate, part, etc ]
+    ----------------------
+    Instance.sethook or Instance.hook || Instance.sethook("Property", "Value") -- Hooks that instance to show "Value" as an discuise so the real value of that Property of the Instance is Hidden
+    Instance.removehook or Instance.rmvhook || Instance.removehook("Property") -- Removes the hook so the real value of that Property can be shown
+    Instance.lock || Instance.lock("Property", [ optinal] "Value") -- if you provide an second argument the property of that Instance will remain that Value, else it will remain the value it is and cannot be changed
+    Instance.unlock, Instance.rmvlock || Instance.unlock("Property") -- self explanitory, makes it so you can change the Property of that Instance again
+]]
 
+-- Version 0.1
 local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
 --========================================================--
 local function resetHookMethod(v)
@@ -33,7 +40,7 @@ local oldIndex;oldIndex=hookmetamethod(game, "__index", newcclosure(function(Sel
     if checkcaller() then
         if type(Index)=="string" then local lowered = Index:lower()
         --+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            if lowered=="sethook" then
+            if lowered=="sethook" or lowered=="hook" then
                 return function(...) local _Arg = {...}
                     local arg1 = _Arg[1]
                     local arg2 = _Arg[2];if not arg1 or not arg2 then return "Invalid Usage! example usage: workspace."..Index.."( "..string.format([[Name, 'hookedWorkspaceName']]).." )" end
@@ -42,14 +49,14 @@ local oldIndex;oldIndex=hookmetamethod(game, "__index", newcclosure(function(Sel
                     return "Successfully attempted to set the hook!"
                 end
             end
-            if lowered=="removehook" or lowered=="deletehook" or lowered=="destroyhook" or lowered=="resethook" or lowered=="rmvhook" then
+            if lowered=="removehook" or lowered=="deletehook" or lowered=="destroyhook" or lowered=="resethook" or lowered=="rmvhook" or lowered=="unhook" then
                 return function(...) local _Arg = {...}
                     local arg1 = _Arg[1];if not arg1 then return "Invalid Usage! example usage: workspace."..Index.."( "..string.format([[Name]]).." )" end
                     Storage["IndexHooks"][Self][(type(arg1)=="function" and arg1() or arg1)] = nil
                     return "Successfully attempted to remove the hook"
                 end
             end
-            if lowered=="removelock" or lowered=="deletelock" or lowered=="destroylock" or lowered=="resetlock" or lowered=="rmvlock" then
+            if lowered=="removelock" or lowered=="deletelock" or lowered=="destroylock" or lowered=="resetlock" or lowered=="rmvlock" or lowered=="unlock" then
                 return function(...) local _Arg = {...}
                     local arg1 = _Arg[1];if not arg1 then return "Invalid Usage! example usage: workspace."..Index.."( "..string.format([[Name]]).." )" end
                     Storage["Locks"][Self][(type(arg1)=="function" and arg1() or arg1)] = nil
@@ -58,8 +65,9 @@ local oldIndex;oldIndex=hookmetamethod(game, "__index", newcclosure(function(Sel
             end
             if lowered=="lock" then
                 return function(...) local _Arg = {...}
-                    local arg1 = _Arg[1];if not arg1 then return "Invalid Usage! example usage: workspace."..Index.."( "..string.format([[Name]]).." )" end
-                    Storage["Locks"][Self][(type(arg1)=="function" and arg1() or arg1)] = true
+                    local arg1 = _Arg[1]
+                    local arg2 = _Arg[2];if not arg1 then return "Invalid Usage! example usage: workspace."..Index.."( "..string.format([[Name]]).." )" end
+                    Storage["Locks"][Self][(type(arg1)=="function" and arg1() or arg1)] = type(arg2)~="boolean" and (type(arg2)=="function" and arg2() or arg2) or true
                     return "Successfully locked the object to the value its at currently [ it cant be changed and will remain at the value its at right now ]"
                 end
             end
@@ -82,6 +90,9 @@ local oldNewIndex;oldNewIndex = hookmetamethod(game, "__newindex", newcclosure(f
     if true~=false and type(Storage["Locks"][Self])=="table" then
         local indexLockFound = Storage["Locks"][Self][Index]
         if indexLockFound then
+            if type(indexLockFound)~="boolean" and indexLockFound then
+                return oldNewIndex(Self, Index, indexLockFound, unpack(Args))
+            end
             return function()return nil, true end
         end
     end
