@@ -3,6 +3,8 @@
     ----------------------
     Instance.sethook or Instance.hook || Instance.sethook("Property", "Value") -- Hooks that instance to show "Value" as an discuise so the real value of that Property of the Instance is Hidden
     Instance.removehook or Instance.rmvhook || Instance.removehook("Property") -- Removes the hook so the real value of that Property can be shown
+    Instance.sethook("Property", { Original = true }) -- Will manipulate that property to return its original value [ this is for game AC ]
+
     Instance.lock || Instance.lock("Property", [ optinal] "Value") -- if you provide an second argument the property of that Instance will remain that Value, else it will remain the value it is and cannot be changed
     Instance.unlock, Instance.rmvlock || Instance.unlock("Property") -- self explanitory, makes it so you can change the Property of that Instance again
 ]]
@@ -47,6 +49,10 @@ local oldIndex;oldIndex=hookmetamethod(game, "__index", newcclosure(function(Sel
                     local arg1 = _Arg[1]
                     local arg2 = _Arg[2];if not arg1 or not arg2 then return "Invalid Usage! example usage: workspace."..Index.."( "..string.format([[Name, 'hookedWorkspaceName']]).." )" end
                     ---------------------
+                    if type(arg2)=="table" and arg2["Original"] then
+                        Storage["IndexHooks"][Self][(type(arg1)=="function" and arg1() or arg1)] = function(...)return Storage["Locks"][Self][Index] or Self[Index] end
+                        return "Successfully hooked to normal value"
+                    end
                     Storage["IndexHooks"][Self][(type(arg1)=="function" and arg1() or arg1)] = function(...) if type(arg2)=="function" then return arg2(...) end;return arg2 end
                     return "Successfully attempted to set the hook!"
                 end
@@ -77,17 +83,22 @@ local oldIndex;oldIndex=hookmetamethod(game, "__index", newcclosure(function(Sel
         end
     end
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    local indT = Storage["IndexHooks"][Self]
-    if indT and rawget(indT, Index) then
-        local indexFound = indT[Index]
-        if type(indexFound)=="function" then return indexFound(Self, Index, ...) end
+    if not checkcaller() then
+        local indT = Storage["IndexHooks"][Self]
+        if indT and rawget(indT, Index) then
+            local indexFound = indT[Index]
+            if type(indexFound)=="function" then return indexFound(Self, Index, ...) end
+            return indexFound
+        end
     end
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     return defaultValue()
 end))
 --========================================================--
 local oldNewIndex;oldNewIndex = hookmetamethod(game, "__newindex", newcclosure(function(Self, Index, NewIndex, ...)
-    local Args = {...};local function defaultValue()return oldNewIndex(Self, Index, NewIndex, unpack(Args)) end;if not isver() then return defaultValue() end 
+    local Args = {...};local function defaultValue()return oldNewIndex(Self, Index, NewIndex, unpack(Args)) end;if not isver() then return defaultValue() end
+    Storage["Locks"][Self] = type(Storage["Locks"][Self])=="table" and Storage["Locks"][Self] or {}
+    Storage["Locks"][Self][Index] = NewIndex
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     if true~=false and type(Storage["Locks"][Self])=="table" then
         local indexLockFound = Storage["Locks"][Self][Index]
@@ -101,4 +112,5 @@ local oldNewIndex;oldNewIndex = hookmetamethod(game, "__newindex", newcclosure(f
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     return defaultValue()
 end))
+--========================================================--
 print("hookmetamethodAPI_Loaded")
