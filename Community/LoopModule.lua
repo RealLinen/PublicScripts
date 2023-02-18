@@ -1,5 +1,5 @@
 local RunService = game:GetService("RunService")
-local isver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))();
+local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))();
 local LoopModule = { ["isver"] = isver }
 local ThisData = { ["Running"] = {} }
 ---------------------------------------------
