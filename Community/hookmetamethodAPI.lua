@@ -8,21 +8,27 @@
     Instance.lock || Instance.lock("Property", [ optinal] "Value") -- if you provide an second argument the property of that Instance will remain that Value, else it will remain the value it is and cannot be changed
     Instance.unlock, Instance.rmvlock || Instance.unlock("Property") -- self explanitory, makes it so you can change the Property of that Instance again
     ---------------------- __namecall calls
-    [ lets say the Instance was a RemoteFunction ] Instance:hook or Instance:sethook || USAGE:
-    Instance:hook("InvokeServer", function(end, ...) 
-        local Args = {...} -- The arguments passed in the RemoteFunction or Remote or whatever ur hooking
-        -- Lets say the Args[1] is a table that includes an Value named 'Cash', basically lets say Args[1] was { Cash = 0 }
-        Args[1]["Cash"] = 10000
-        end(Args) -- modify and return the modified data, if you dont call end, it will return the default value
+    Instance:hook or Instance:sethook || Usage Example:
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    local BindableEvent = Instance.new("BindableEvent")
+    BindableEvent:hook("Fire", function(query, Self, ...)
+	    local arg = {...}
+	    if arg[1]=="Test" then -- If the remote or Event is fired with this we return a custom result
+	        return query("Custom Hooked result!")	
+        end
     end)
-    Instance:unhook("InvokeServer") -- will disconnect the event that logs "InvokeServer" [ The example above ]
-    ================================================
-
+    print(BindableEvent:Fire("Test")) -- "Custom Hooked Result" because we fired it with 'Test'
+    print(BindableEvent:Fire("Hello")) -- Nothing
+    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    Instance:unhook or Instance:rmvhook or Instance:resethook || Usage Example:
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Instance:unhook("Fire") -- unhooks the Fire event we added above [ it means we cant hook the result of the remote/spoof it anymore ]
 ]]
 
 -- Created By: Linen#3485
 -- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1201899
--- Version 0.25 [ Added __namecall hooks ]
+-- Version 0.2 [ Added __namecall hooks ]
 
 local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
 --========================================================--
@@ -113,20 +119,18 @@ local oldNamecall;oldNamecall = hookmetamethod(game, "__namecall", newcclosure(f
     local Index = getnamecallmethod()
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     if true~=false then Storage["NamecallHooks"][Self] = type(Storage["NamecallHooks"][Self])=="table" and Storage["NamecallHooks"][Self] or {};Storage["Locks"][Self] = type(Storage["Locks"][Self])=="table" and Storage["Locks"][Self] or {} end
-    if checkcaller() and tostring(Index) then local lowered = tostring(Index):lower()
+    if checkcaller() and tostring(Index) then local lowered = tostring(Index):lower();local _Arg = Args;
         if lowered=="sethook" or lowered=="hook" then
-            return function(...) local _Arg = {...}
-                local arg1 = _Arg[1]
-                local arg2 = _Arg[2];if not arg1 or type(arg2)~="function" then return "Invalid Usage! example usage: workspace:"..Index.."( "..string.format([[EventName, 'function']]).." )" end
-                ---------------------
-                Storage["NamecallHooks"][Self][arg1] = arg2
-            end
+            local arg1 = _Arg[1]
+            local arg2 = _Arg[2];if not arg1 or type(arg2)~="function" then return "Invalid Usage! example usage: workspace:"..Index.."( "..string.format([[EventName, 'function']]).." )" end
+            ---------------------
+            Storage["NamecallHooks"][Self][arg1] = arg2
+            return "Successfully __namecall hooked!"
         end
         if lowered=="removehook" or lowered=="deletehook" or lowered=="destroyhook" or lowered=="resethook" or lowered=="rmvhook" or lowered=="unhook" then
-            return function(...) local _Arg = {...}
-                local arg1 = _Arg[1];if not arg1 then return "Invalid Usage! example usage: workspace:"..Index.."( "..string.format([[EventName]]).." )" end
-                Storage["NamecallHooks"][Self][arg1] = nil
-            end
+            local arg1 = _Arg[1];if not arg1 then return "Invalid Usage! example usage: workspace:"..Index.."( "..string.format([[EventName]]).." )" end
+            Storage["NamecallHooks"][Self][arg1] = nil
+            return "Successfully removed __namecall hooked!"
         end
     end
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -137,7 +141,7 @@ local oldNamecall;oldNamecall = hookmetamethod(game, "__namecall", newcclosure(f
             if type(indexFound)=="function" then 
                 local gotten = nil
                 local endit = function(...) gotten = {...} end
-                pcall(indexFound, endit, ...)
+                pcall(indexFound, endit, Self, ...)
                 if type(gotten)=="table" then return unpack(gotten) end
             end
         end
@@ -168,4 +172,4 @@ local oldNewIndex;oldNewIndex = hookmetamethod(game, "__newindex", newcclosure(f
     return defaultValue()
 end))
 --========================================================--
-getfenv().isver = isver;print("HookMetamethodAPI: Loaded")
+getfenv().isver = isver;print("HookMetamethodAPI: Loaded\n===========================================")
