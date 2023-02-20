@@ -8,6 +8,9 @@ iRay  | Programming
 
 ]]
 
+-- Modified by Linen#3485
+-- Fixed Keybinds still activating on re-execute
+-- Changed wait to task.wait for faster execution
 
 local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
 
@@ -2150,7 +2153,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = SelectedTheme.ElementBackgroundHover}):Play()
 			end)
 
-			Slider.MouseLeave:Connect(function()if not isver() then return; end;v
+			Slider.MouseLeave:Connect(function()if not isver() then return; end;
 				TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
 			end)
 			
