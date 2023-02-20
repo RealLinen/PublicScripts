@@ -8,7 +8,7 @@ iRay  | Programming
 
 ]]
 
--- Modified by Linen#3485
+-- Modified by Linen#3485 | V 6.5.E
 -- Fixed Keybinds still activating on re-execute || Fixed line 2234 erroring [ because Suffix for slider was undefined ]
 -- Changed wait to task.wait for faster execution
 
