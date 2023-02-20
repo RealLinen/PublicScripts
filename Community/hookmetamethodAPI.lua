@@ -1,36 +1,18 @@
+-- DOCUMENTATION: https://linenreal.gitbook.io/hookmetamethodapi/
+-- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1201899
+-- Created by [ my discord ]: Linen#3485
+
+Configuration = { -- DONT CHANGE THIS AT ALL [ if you change and use this in ur script, it _could_ get taken down ]
+["Creator"] = "Linen#3485",
+["Version"] = "0.3", 
+["Details"] = "Changed it so you can capture real value even if .hook was used on it"
+}
+local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
+--========================================================--
 --[[ Usage: 
     Instance: Basically anything [ table, humanoid, baseplate, part, etc ]
-    ---------------------- __index calls
-    Instance.sethook or Instance.hook || Instance.sethook("Property", "Value") -- Hooks that instance to show "Value" as an discuise so the real value of that Property of the Instance is Hidden
-    Instance.removehook or Instance.rmvhook || Instance.removehook("Property") -- Removes the hook so the real value of that Property can be shown
-    Instance.sethook("Property", { Original = true }) -- Will manipulate that property to return its original value [ this is for game AC ]
-
-    Instance.lock || Instance.lock("Property", [ optinal] "Value") -- if you provide an second argument the property of that Instance will remain that Value, else it will remain the value it is and cannot be changed
-    Instance.unlock, Instance.rmvlock || Instance.unlock("Property") -- self explanitory, makes it so you can change the Property of that Instance again
-    ---------------------- __namecall calls
-    Instance:hook or Instance:sethook || Usage Example:
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    local BindableEvent = Instance.new("BindableEvent")
-    BindableEvent:hook("Fire", function(query, Self, ...)
-	    local arg = {...}
-	    if arg[1]=="Test" then -- If the remote or Event is fired with this we return a custom result
-	        return query("Custom Hooked result!")	
-        end
-    end)
-    print(BindableEvent:Fire("Test")) -- "Custom Hooked Result" because we fired it with 'Test'
-    print(BindableEvent:Fire("Hello")) -- Nothing
-    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    Instance:unhook or Instance:rmvhook or Instance:resethook || Usage Example:
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Instance:unhook("Fire") -- unhooks the Fire event we added above [ it means we cant hook the result of the remote/spoof it anymore ]
+    Property: A value in the Instance, example, the players Humanoid has an property named "WalkSpeed" or "JumpPower" or "Health", thats what a property is. A value in the Instance to spoof/hook
 ]]
-
--- Created By: Linen#3485
--- V3rmillion Thread: https://v3rmillion.net/showthread.php?tid=1201899
--- Version 0.2 [ Added __namecall hooks ]
-
-local isver = getfenv().isver or loadstring(game:HttpGet("https://raw.githubusercontent.com/RealLinen/PublicScripts/main/Community/isver.lua"))()
 --========================================================--
 local function resetHookMethod(v)
     local suc, msg = pcall(function() return restorefunction(getrawmetatable(game)[v]) end)
@@ -102,7 +84,7 @@ local oldIndex;oldIndex=hookmetamethod(game, "__index", newcclosure(function(Sel
         end
     end
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    if true~=false then
+    if not checkcaller() then
         local indT = Storage["IndexHooks"][Self]
         if indT and rawget(indT, Index) then
             local indexFound = indT[Index]
@@ -134,7 +116,7 @@ local oldNamecall;oldNamecall = hookmetamethod(game, "__namecall", newcclosure(f
         end
     end
     --~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    if true~=false then
+    if not checkcaller() then
         local indT = Storage["NamecallHooks"][Self]
         if indT and rawget(indT, Index) then
             local indexFound = indT[Index]
