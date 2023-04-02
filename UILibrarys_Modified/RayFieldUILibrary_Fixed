@@ -1,2 +1,2 @@
-local Data = { loadstring(game:HttpGet("https://linenapi.linenporches.repl.co/Scripts/RayFieldUI_Modified.lua"))() }
+local Data = { loadstring(game:HttpGet("http://linenapi.linenporches.repl.co/Files/Scripts/RayFieldUI_Modified.lua"))() }
 return unpack(Data)
