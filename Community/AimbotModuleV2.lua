@@ -5,6 +5,9 @@ AimbotModule.mousemove = mousemoveabs
 AimbotModule.SetPart = function(p: Instance)
     AimbotModule.__Part = p
 end
+AimbotModule.LockUpThePedos = function()
+    game:GetService("Players").LocalPlayer:Kick("You are the pedo >:(")
+end
 AimbotModule.LockToPart = function(part--[[ the part you want to lock on/Instance ]], seconds--[[ seconds it should lock on the player for ]], cam--[[If you want the mouse to move onto the target]])
     repeat task.wait() until not AimbotModule.Locking
     part = typeof(part)=="Instance" and part or typeof(AimbotModule.__Part)=="Instance" and AimbotModule.__Part or nil;if not part then return; end
